@@ -4,6 +4,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import axios from 'axios'
 import Layout from './layout/Layout'
 import ErrorPage from './pages/ErrorPage'
+import EditTypePage from './pages/manage-categories/EditTypePage'
+import AddTypePage from './pages/manage-categories/AddTypePage'
 
 // pages import
 const LiveListingPage = lazy(
@@ -44,6 +46,14 @@ const router = createBrowserRouter([
       {
         path: '/manage-categories/:category',
         element: <ManageCategoriesPage />,
+      },
+      {
+        path: '/manage-categories/:category/add',
+        element: <AddTypePage />,
+      },
+      {
+        path: '/manage-categories/:category/edit/:typeId',
+        element: <EditTypePage />,
       },
       { path: '/manage-brands', element: <ManageBrandsPage /> },
       { path: '/manage-locations', element: <ManageLocationsPage /> },

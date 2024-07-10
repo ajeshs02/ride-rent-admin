@@ -1,7 +1,7 @@
-import { IoClose } from 'react-icons/io5'
 import { sidebarContent } from '@/constants'
 import { useAdminContext } from '@/context/AdminContext'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { X } from 'lucide-react'
 
 const Sidebar = () => {
   const { isSidebarOpen, toggleSidebar, isSmallScreen } = useAdminContext()
@@ -40,7 +40,10 @@ const Sidebar = () => {
             className="inline-flex items-center justify-center p-0 mb-1 bg-transparent border-none outline-none cursor-pointer group"
             onClick={toggleSidebar}
           >
-            <IoClose className="w-8 h-8 transition-colors group-hover:text-yellow" />
+            <X
+              strokeWidth={2.5}
+              className="w-8 h-8 transition-colors group-hover:text-yellow"
+            />
           </button>
         )}
       </div>
@@ -71,7 +74,7 @@ const Sidebar = () => {
               tabIndex={0}
               onKeyDown={(e) => e.key === 'Enter' && handleClick(item.link)}
             >
-              <Icon className="text-xl" />
+              <Icon className="text-xl" size={20} strokeWidth={3} />
               <span className="font-medium">{item.label}</span>
             </div>
           )

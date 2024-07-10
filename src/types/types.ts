@@ -5,9 +5,32 @@ export type AdminContextType = {
   isSmallScreen: boolean
 }
 
+export type VehicleCategoryType =
+  | 'car'
+  | 'sports_car'
+  | 'cycle'
+  | 'motorcycle'
+  | 'sports_bike'
+  | 'leisure_boat'
+  | 'charter'
+  | 'bus'
+  | 'van'
+  | 'buggy'
+  | 'yacht'
+
 export type VehicleCategoriesType = {
   id: number
   label: string
-  value: string
+  value: VehicleCategoryType
   link: string
+}
+
+export type GeneralFormType = {
+  id?: string
+  meta_title: string
+  meta_description: string
+  page_title: string
+  sub_heading?: string
+  page_link?: string
+  logoSrc?: string
 }

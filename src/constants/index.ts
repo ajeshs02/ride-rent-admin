@@ -1,31 +1,44 @@
-import { FaRectangleList } from 'react-icons/fa6'
-import { IoIosNotifications } from 'react-icons/io'
-import { BiSolidCategory } from 'react-icons/bi'
-import { PiListStarFill } from 'react-icons/pi'
-import { FaLocationDot } from 'react-icons/fa6'
-import { RiLinksFill } from 'react-icons/ri'
-import { RiAdvertisementFill } from 'react-icons/ri'
-import { TbLayoutDashboardFilled } from 'react-icons/tb'
+import {
+  BellPlus,
+  CarFront,
+  LayoutDashboard,
+  Link,
+  List,
+  MapPin,
+  Megaphone,
+  Star,
+} from 'lucide-react'
 
+// sidebar content
 export const sidebarContent = [
-  { label: 'Dashboard', icon: TbLayoutDashboardFilled, link: '/' },
-  { label: 'Live Listings', icon: FaRectangleList, link: '/live-listing' },
+  { label: 'Dashboard', icon: LayoutDashboard, link: '/' },
+  { label: 'Live Listings', icon: List, link: '/live-listing' },
   {
     label: 'New Updates',
-    icon: IoIosNotifications,
+    icon: BellPlus,
     link: '/new-updates',
   },
   {
     label: 'Categories',
-    icon: BiSolidCategory,
+    icon: CarFront,
     link: '/manage-categories',
   },
-  { label: 'Brands', icon: PiListStarFill, link: '/manage-brands' },
-  { label: 'Locations', icon: FaLocationDot, link: '/manage-locations' },
+  { label: 'Brands', icon: Star, link: '/manage-brands' },
+  { label: 'Locations', icon: MapPin, link: '/manage-locations' },
   {
     label: 'Links ',
-    icon: RiLinksFill,
+    icon: Link,
     link: '/manage-links',
   },
-  { label: 'Ads', icon: RiAdvertisementFill, link: '/manage-ads' },
+  { label: 'Ads', icon: Megaphone, link: '/manage-ads' },
 ]
+
+// general form default values
+export const generalFormDefaultValues = {
+  meta_title: '',
+  meta_description: '',
+  page_title: '',
+  sub_heading: '',
+  page_Link: '',
+  logoSrc: '',
+}

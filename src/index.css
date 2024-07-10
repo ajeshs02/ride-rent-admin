@@ -70,14 +70,30 @@
 
 @layer utilities {
   .wrapper {
-    @apply max-w-7xl lg:mx-auto p-5 md:px-10 xl:px-0 w-full;
+    @apply w-full p-5 max-w-7xl lg:mx-auto md:px-10 xl:px-0;
   }
 
   .flex-center {
-    @apply flex justify-center items-center;
+    @apply flex items-center justify-center;
   }
 
   .flex-between {
-    @apply flex justify-between items-center;
+    @apply flex items-center justify-between;
+  }
+
+  .input-field {
+    @apply bg-gray-100 h-[54px] focus-visible:ring-offset-0 placeholder:text-gray-500 rounded-2xl p-regular-16 px-4 py-3 border-none focus-visible:ring-transparent !important;
+  }
+
+  .textarea {
+    @apply bg-gray-100 flex flex-1 placeholder:text-gray-500 p-regular-16 px-5 py-3 border-none focus-visible:ring-transparent !important;
+  }
+
+  .button {
+    @apply rounded-full h-[54px] p-regular-16;
+  }
+
+  .p-regular-16 {
+    @apply text-[16px] font-normal leading-[24px];
   }
 }

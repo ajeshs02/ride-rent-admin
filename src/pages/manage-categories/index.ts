@@ -45,13 +45,19 @@ export const VehicleCategories: VehicleCategoriesType[] = [
   },
 ]
 
-type VehicleType = {
+type RegularVehicleType = {
   key: number
   name: string
   options: number
   value: string
   src: string
 }
+
+type AddMoreType = {
+  key: 'addMore'
+}
+
+type VehicleType = RegularVehicleType | AddMoreType
 
 type VehicleTypes = {
   [key: string]: VehicleType[]

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
-import { GiHamburgerMenu } from 'react-icons/gi'
 import { useAdminContext } from '@/context/AdminContext'
+import { Menu } from 'lucide-react'
 
 const Navbar = () => {
   const { isSidebarOpen, toggleSidebar, isSmallScreen } = useAdminContext()
@@ -15,7 +15,8 @@ const Navbar = () => {
               className="p-0 m-0 bg-transparent border-none outline-none cursor-pointer flex-center group"
               onClick={toggleSidebar}
             >
-              <GiHamburgerMenu
+              <Menu
+                strokeWidth={3}
                 className={`w-[1.6rem] h-[1.6rem] transition-colors duration-100 ease-in mb-1  group-hover:text-yellow`}
               />
             </button>
