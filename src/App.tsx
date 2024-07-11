@@ -4,8 +4,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import axios from 'axios'
 import Layout from './layout/Layout'
 import ErrorPage from './pages/ErrorPage'
-import EditTypePage from './pages/manage-categories/EditTypePage'
-import AddTypePage from './pages/manage-categories/AddTypePage'
 
 // pages import
 const LiveListingPage = lazy(
@@ -16,6 +14,11 @@ const NewUpdatesPage = lazy(() => import('./pages/new-updates/NewUpdatesPage'))
 const ManageCategoriesPage = lazy(
   () => import('./pages/manage-categories/ManageCategoriesPage')
 )
+const EditTypePage = lazy(
+  () => import('./pages/manage-categories/EditTypePage')
+)
+const AddTypePage = lazy(() => import('./pages/manage-categories/AddTypePage'))
+
 const ManageBrandsPage = lazy(
   () => import('./pages/manage-brands/ManageBrandsPage')
 )

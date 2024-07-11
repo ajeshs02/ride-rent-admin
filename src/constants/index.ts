@@ -33,12 +33,17 @@ export const sidebarContent = [
   { label: 'Ads', icon: Megaphone, link: '/manage-ads' },
 ]
 
-// general form default values
-export const generalFormDefaultValues = {
+// Vehicle type form default values
+export const VehicleTypeFormDefaultValues = {
   meta_title: '',
   meta_description: '',
-  page_title: '',
+  type_name: '',
+  type_value: '',
   sub_heading: '',
-  page_Link: '',
-  logoSrc: '',
+}
+
+// Link form default values
+export const LinkFormDefaultValues = {
+  label: '',
+  link: 'https://',
 }

@@ -25,12 +25,18 @@ export type VehicleCategoriesType = {
   link: string
 }
 
-export type GeneralFormType = {
+export type VehicleFormType = {
   id?: string
+  type_name: string
+  type_value: string
+  sub_heading: string
   meta_title: string
   meta_description: string
-  page_title: string
-  sub_heading?: string
-  page_link?: string
-  logoSrc?: string
+  logo: any
+}
+
+export type LinkFormType = {
+  id: string
+  label: string
+  link: string
 }
