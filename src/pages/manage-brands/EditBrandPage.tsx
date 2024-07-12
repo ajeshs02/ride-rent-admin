@@ -1,13 +1,18 @@
-import React, { useEffect, useState } from 'react'
-import VehicleTypeForm from '@/components/form/VehicleTypesForm'
-import { VehicleCategoryType, VehicleFormType } from '@/types/types'
+import { useEffect, useState } from 'react'
+import {
+  BrandFormType,
+  VehicleCategoryType,
+  VehicleFormType,
+} from '@/types/types'
 import { CircleArrowLeft } from 'lucide-react'
 import { useNavigate, useParams } from 'react-router-dom'
 import FormSkelton from '@/components/loading-skelton/FormSkelton'
+import BrandForm from '@/components/form/BrandForm'
 
-const sampleFormData: VehicleFormType = {
-  type_name: 'Airport Pickup',
-  type_value: 'airport_pickup',
+const sampleFormData: BrandFormType = {
+  brand_name: 'Airport Pickup',
+  brand_value: 'airport_pickup',
+  category: 'cycle',
   sub_heading: 'Convenient airport pickups for travelers',
   meta_title: 'Airport Pickup Service',
   meta_description:
@@ -15,13 +20,16 @@ const sampleFormData: VehicleFormType = {
   logo: 'https://images.unsplash.com/photo-1720329461017-d6ed9f66beb5?q=80&w=1460&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
 }
 
-export default function UpdateTypesPage() {
-  const { category, typeId } = useParams<{ category: string; typeId: string }>()
+export default function EditBrandPage() {
+  const { category, brandId } = useParams<{
+    category: string
+    brandId: string
+  }>()
   const validCategory = category as VehicleCategoryType
   const navigate = useNavigate()
 
   const [loading, setLoading] = useState(true)
-  const [formData, setFormData] = useState<VehicleFormType | null>(null)
+  const [formData, setFormData] = useState<BrandFormType | null>(null)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,16 +52,12 @@ export default function UpdateTypesPage() {
         >
           <CircleArrowLeft />
         </button>
-        <h1 className="text-center h3-bold sm:text-left">Update Type</h1>
+        <h1 className="text-center h3-bold sm:text-left">Update Brand</h1>
       </div>
       {loading ? (
         <FormSkelton />
       ) : (
-        <VehicleTypeForm
-          type="Update"
-          category={validCategory}
-          formData={formData}
-        />
+        <BrandForm type="Update" category={validCategory} formData={formData} />
       )}
     </section>
   )

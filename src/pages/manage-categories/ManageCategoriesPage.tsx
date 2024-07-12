@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
 import {
@@ -15,7 +14,7 @@ import { Vehicle_Types, VehicleCategories } from '.'
 import { useEffect, useState } from 'react'
 import { ChevronDown, Plus } from 'lucide-react'
 import { VehicleCategoriesType } from '@/types/types'
-import GridSkelton from '@/components/skelton/GridSkelton'
+import GridSkelton from '@/components/loading-skelton/GridSkelton'
 
 export default function ManageCategoriesPage() {
   const [selectedCategory, setSelectedCategory] = useState(VehicleCategories[0])
@@ -39,7 +38,7 @@ export default function ManageCategoriesPage() {
     setIsLoading(true)
     const timeoutId = setTimeout(() => {
       setIsLoading(false)
-    }, 0)
+    }, 1500)
 
     return () => clearTimeout(timeoutId) // Cleanup the timeout if the component unmounts
   }, [selectedCategory])
@@ -104,14 +103,15 @@ export default function ManageCategoriesPage() {
               <Link
                 to={`/manage-categories/${selectedCategory.value}/edit/${data.key}`}
                 key={data.key}
+                className=""
               >
-                <figure className="flex flex-col items-center w-auto p-2 bg-white border rounded-xl">
+                <figure className="flex flex-col items-center w-auto p-2 bg-white border h-36 rounded-xl">
                   <img
                     src={data.src}
                     alt={data.name}
                     className="object-contain w-full h-full max-w-36"
                   />
-                  <figcaption className="max-w-full mt-2 font-semibold">
+                  <figcaption className="max-w-full mt-2 font-semibold text-center">
                     {data.name}
                   </figcaption>
                 </figure>

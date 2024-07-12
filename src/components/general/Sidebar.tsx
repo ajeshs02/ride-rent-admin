@@ -1,7 +1,9 @@
-import { sidebarContent } from '@/constants'
+import { orgs, sidebarContent } from '@/constants'
 import { useAdminContext } from '@/context/AdminContext'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { X } from 'lucide-react'
+import GeneralDropdown from '../LocationDropdown'
+import { OrgSelect } from '../OrgSelect'
 
 const Sidebar = () => {
   const { isSidebarOpen, toggleSidebar, isSmallScreen } = useAdminContext()
@@ -15,7 +17,7 @@ const Sidebar = () => {
 
   return (
     <aside
-      className={`fixed top-0 h-full bg-white w-56  transition-all duration-300 ease-in-out z-[101]   ${
+      className={`fixed top-0 bottom-0  h-full bg-white w-56  transition-all duration-300 ease-in-out z-[101]   ${
         isSidebarOpen ? 'left-0' : '-left-56'
       } ${!isSmallScreen && '!left-0'}`}
     >
@@ -79,6 +81,8 @@ const Sidebar = () => {
             </div>
           )
         })}
+
+        <OrgSelect />
       </div>
     </aside>
   )

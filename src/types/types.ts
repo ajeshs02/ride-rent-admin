@@ -1,8 +1,23 @@
+type orgType = {
+  id?: string | number
+  label: string
+  value: string
+}
+type locationType = {
+  id?: string | number
+  location: string
+  value: string
+}
+
 export type AdminContextType = {
   isSidebarOpen: boolean
   setSidebarOpen?: (value: boolean) => void
   toggleSidebar: () => void
   isSmallScreen: boolean
+  org: orgType
+  setOrg: (origin: orgType) => void
+  location: locationType
+  setLocation: (location: locationType) => void
 }
 
 export type VehicleCategoryType =
@@ -19,7 +34,7 @@ export type VehicleCategoryType =
   | 'yacht'
 
 export type VehicleCategoriesType = {
-  id: number
+  id: number | string
   label: string
   value: VehicleCategoryType
   link: string
@@ -35,8 +50,26 @@ export type VehicleFormType = {
   logo: any
 }
 
+export type BrandFormType = {
+  id?: string
+  brand_name: string
+  brand_value: string
+  category: VehicleCategoryType
+  sub_heading: string
+  meta_title: string
+  meta_description: string
+  logo: any
+}
+
 export type LinkFormType = {
   id: string
   label: string
+  link: string
+}
+
+export type BrandType = {
+  id: number | string
+  label: string
+  value: VehicleCategoryType
   link: string
 }

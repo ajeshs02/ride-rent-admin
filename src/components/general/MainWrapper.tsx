@@ -1,6 +1,6 @@
 import useIsSmallScreen from '@/hooks/useIsSmallScreen'
 import React, { Suspense } from 'react'
-import LazyLoader from './LazyLoader'
+import LazyLoader from '../loading-skelton/LazyLoader'
 
 export default function MainWrapper({
   children,

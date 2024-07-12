@@ -23,8 +23,24 @@ type AdminProviderProps = {
   children: ReactNode
 }
 
+type orgType = {
+  id?: string | number
+  label: string
+  value: string
+}
+type locationType = {
+  id?: string | number
+  location: string
+  value: string
+}
+
 const AdminProvider = ({ children }: AdminProviderProps) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false)
+  const [org, setOrg] = useState<orgType>({ label: 'UAE', value: 'uae' })
+  const [location, setLocation] = useState<locationType>({
+    location: 'Dubai',
+    value: 'dubai',
+  })
 
   const isSmallScreen = useIsSmallScreen(1100)
 
@@ -50,6 +66,10 @@ const AdminProvider = ({ children }: AdminProviderProps) => {
         isSidebarOpen,
         toggleSidebar,
         isSmallScreen,
+        org,
+        setOrg,
+        location,
+        setLocation,
       }}
     >
       {children}

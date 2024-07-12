@@ -2,6 +2,9 @@ import { Link } from 'react-router-dom'
 import { useAdminContext } from '@/context/AdminContext'
 import { Menu } from 'lucide-react'
 
+import LocationDropdown from '../LocationDropdown'
+import { locations } from '@/constants'
+
 const Navbar = () => {
   const { isSidebarOpen, toggleSidebar, isSmallScreen } = useAdminContext()
 
@@ -50,6 +53,10 @@ const Navbar = () => {
             onClick={toggleSidebar}
           />
         )}
+
+        <div className="mr-6 flex-center gap-x-4">
+          <LocationDropdown options={locations} />
+        </div>
       </nav>
     </header>
   )

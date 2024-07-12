@@ -29,9 +29,7 @@ export default function FormSkelton() {
         size="lg"
         disabled={true}
         className="w-full col-span-2 mt-3 text-gray-900 bg-gray-300 button !text-lg !font-semibold"
-      >
-        Loading
-      </Button>
+      ></Button>
     </div>
   )
 }
