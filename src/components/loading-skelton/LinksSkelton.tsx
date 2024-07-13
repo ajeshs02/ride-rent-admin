@@ -8,7 +8,7 @@ export default function LinkSkelton() {
         key={index}
         className="flex flex-col w-full p-1 mb-2 space-y-3 rounded-xl"
       >
-        <Skeleton className="w-full h-8 bg-gray-200 rounded-xl " />
+        <Skeleton className="w-full h-12 bg-gray-200 rounded-xl " />
         <div className="space-y-2">
           <Skeleton className="w-[70%] h-6 bg-gray-200" />
         </div>

@@ -63,7 +63,7 @@ export default function VehicleTypeForm({
       formData.append('existing_logo_url', values.logo)
     }
 
-    for (var pair of formData.entries()) {
+    for (let pair of formData.entries()) {
       console.log(pair[0] + ', ' + pair[1])
     }
 

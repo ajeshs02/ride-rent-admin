@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -79,6 +80,7 @@ export default function LinkModal({ type, linkData }: LinkModalProps) {
           <DialogTitle className="text-xl font-bold text-center">
             {type === 'Add' ? ' Add New Link' : 'Update Link'}
           </DialogTitle>
+          <DialogDescription aria-label="add or update the link" />
           <div>
             <Form {...form}>
               <form

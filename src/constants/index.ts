@@ -92,10 +92,25 @@ export const BrandFormDefaultValues = {
   brand_category: 'car',
 }
 
+// Location form default values
+export const LocationFormDefaultValues = {
+  meta_title: '',
+  meta_description: '',
+  location_name: '',
+  location_value: '',
+  sub_heading: '',
+  logo: '',
+}
+
 // Link form default values
 export const LinkFormDefaultValues = {
   label: '',
   link: 'https://ride.rent/',
+}
+
+// ads form default values
+export const AdFormDefaultValues = {
+  imageSrc: '',
 }
 
 // navbar origin dropdown temporary value/s

@@ -58,7 +58,8 @@ export default function ManageBrandsPage() {
     <section className="container h-auto min-h-screen pb-10">
       <div className="h-20 pl-2 pr-10 flex-between">
         <h1 className="text-2xl font-bold capitalize whitespace-nowrap">
-          Manage Brands
+          Manage <span className="text-yellow">{selectedCategory.label}</span>{' '}
+          Brands
         </h1>
 
         <CategoryDropdown
@@ -77,16 +78,15 @@ export default function ManageBrandsPage() {
           <GridSkelton type="brand" />
         ) : filteredBrands.length === 0 ? (
           <div className="flex-col text-center flex-center h-72 col-span-full">
-            <p className="text-lg text-gray-700">
+            <p className="text-xl font-semibold text-gray-800">
               {' '}
               No results found for{' '}
-              <span className="italic font-semibold">
-                &nbsp;
-                {searchParams.get('search')}
+              <span className="italic font-bold">
+                "{searchParams.get('search')}""
               </span>
             </p>
             <p className="mt-2 italic text-gray-400">
-              consider checking the spelling, selected vehicle category
+              consider checking the spelling / selected vehicle category
             </p>
             .
           </div>

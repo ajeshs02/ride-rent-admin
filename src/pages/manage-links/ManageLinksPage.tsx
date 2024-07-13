@@ -56,9 +56,9 @@ export default function ManageLinksPage() {
         )}
       </div>
 
-      <button className="fixed px-3 py-2 text-white shadow-gray-400 shadow-lg hover:scale-[1.02]  transition-all bg-yellow flex-center w-fit rounded-xl right-10 bottom-10">
+      <div className="fixed px-3 py-2 text-white shadow-gray-400 shadow-lg hover:scale-[1.02]  transition-all bg-yellow flex-center w-fit rounded-xl right-10 bottom-10">
         <LinkModal type="Add" />
-      </button>
+      </div>
     </section>
   )
 }

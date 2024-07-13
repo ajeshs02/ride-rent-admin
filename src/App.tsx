@@ -5,7 +5,9 @@ import axios from 'axios'
 import Layout from './layout/Layout'
 import ErrorPage from './pages/ErrorPage'
 import EditBrandPage from './pages/manage-brands/EditBrandPage'
-import AddBrandPage from './pages/manage-brands/AddBrandPage'
+import AddBrandPage from './pages/manage-locations/AddLocationPage'
+import AddLocationPage from './pages/manage-locations/AddLocationPage'
+import EditLocationPage from './pages/manage-locations/EditLocationPage'
 
 // pages import
 const LiveListingPage = lazy(
@@ -44,6 +46,8 @@ const router = createBrowserRouter([
       { path: '/', element: <Dashboard /> },
       { path: '/live-listing', element: <LiveListingPage /> },
       { path: '/new-updates', element: <NewUpdatesPage /> },
+
+      // categories route
       {
         path: '/manage-categories',
         element: <Navigate to="/manage-categories/car" />,
@@ -60,6 +64,8 @@ const router = createBrowserRouter([
         path: '/manage-categories/:category/edit/:typeId',
         element: <EditTypePage />,
       },
+
+      // brands route
       {
         path: '/manage-brands',
         element: <Navigate to="/manage-brands/car" />,
@@ -70,8 +76,19 @@ const router = createBrowserRouter([
         path: '/manage-brands/:category/edit/:brandId',
         element: <EditBrandPage />,
       },
+
+      // location route
       { path: '/manage-locations', element: <ManageLocationsPage /> },
+      { path: '/manage-locations/add', element: <AddLocationPage /> },
+      {
+        path: '/manage-locations/edit/:locationId',
+        element: <EditLocationPage />,
+      },
+
+      // links route
       { path: '/manage-links', element: <ManageLinksPage /> },
+
+      // ads route
       { path: '/manage-ads', element: <ManageAdsPage /> },
     ],
   },

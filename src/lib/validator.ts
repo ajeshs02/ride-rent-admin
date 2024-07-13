@@ -1,5 +1,6 @@
 import * as z from 'zod'
 
+// Vehicle Type Form Schema
 export const VehicleTypeFormSchema = z.object({
   meta_title: z.string().min(1, 'Meta title is required'),
   meta_description: z.string().min(1, 'Meta description is required'),
@@ -19,7 +20,6 @@ export const VehicleTypeFormSchema = z.object({
     ),
   sub_heading: z.string().min(1, 'Title subheading required'),
 
-  // Define logo as a union type of FileList and string
   logo: z
     .union([
       z.instanceof(FileList), // For when a file is selected
@@ -36,6 +36,7 @@ export const VehicleTypeFormSchema = z.object({
     }, 'Logo must be either a File or a URL'),
 })
 
+// Brand Form Schema
 export const BrandFormSchema = z.object({
   meta_title: z.string().min(1, 'Meta title is required'),
   meta_description: z.string().min(1, 'Meta description is required'),
@@ -61,7 +62,6 @@ export const BrandFormSchema = z.object({
       /^[A-Za-z_]+$/,
       'Category should only contain letters and underscores'
     ),
-  // Define logo as a union type of FileList and string
   logo: z
     .union([
       z.instanceof(FileList), // For when a file is selected
@@ -78,10 +78,66 @@ export const BrandFormSchema = z.object({
     }, 'Logo must be either a File or a URL'),
 })
 
+// Location Form Schema
+export const LocationFormSchema = z.object({
+  meta_title: z.string().min(1, 'Meta title is required'),
+  meta_description: z.string().min(1, 'Meta description is required'),
+  location_name: z
+    .string()
+    .min(3, 'Brand title should be at least 3 characters long')
+    .regex(
+      /^[A-Za-z\s]+$/,
+      'Brand title should only contain letters and spaces'
+    ),
+  location_value: z
+    .string()
+    .min(3, 'Brand value should be at least 3 characters long')
+    .regex(
+      /^[A-Za-z_]+$/,
+      'Brand value should only contain letters and underscores'
+    ),
+  sub_heading: z.string().min(1, 'Title subheading required'),
+  // Define logo as a union type of FileList and string
+  logo: z
+    .union([
+      z.instanceof(FileList), // For when a file is selected
+      z.string(), // For when a URL from backend is used
+    ])
+    .refine((value) => {
+      // Custom refinement to check if it's either FileList or string (URL)
+      if (value instanceof FileList) {
+        return value.length === 1 // Ensure only one file is selected
+      } else if (typeof value === 'string') {
+        return true
+      }
+      return false
+    }, 'Logo must be either a File or a URL'),
+})
+
+// Link Form Schema
 export const LinkFormSchema = z.object({
   label: z
     .string()
     .min(1, 'Label is required')
     .max(100, 'Label should not exceed 100 characters'),
   link: z.string().min(1, 'Link is required').url('Link must be a valid URL'),
+})
+
+// Ads Form Schema
+export const AdsFormSchema = z.object({
+  imageSrc: z
+    .union([
+      z.instanceof(FileList), // For when a file is selected
+      z.string(), // For when a URL from backend is used
+    ])
+    .refine((value) => {
+      console.log('value ', value)
+      // Custom refinement to check if it's either FileList or string (URL)
+      if (value instanceof FileList) {
+        return value.length === 1 // Ensure only one file is selected
+      } else if (typeof value === 'string') {
+        return true
+      }
+      return false
+    }, 'Image must be either a File or a URL'),
 })

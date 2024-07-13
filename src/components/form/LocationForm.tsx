@@ -15,44 +15,39 @@ import {
 
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { VehicleFormType, VehicleCategoryType } from '@/types/types'
-import { VehicleTypeFormSchema } from '@/lib/validator'
-import { VehicleTypeFormDefaultValues } from '@/constants'
+import { LocationFormType } from '@/types/types'
+import { LocationFormSchema } from '@/lib/validator'
+import { LocationFormDefaultValues } from '@/constants'
 import { Textarea } from '../ui/textarea'
 
-type VehicleTypeFormProps = {
+type LocationFormProps = {
   type: 'Add' | 'Update'
-  category: VehicleCategoryType
-  formData?: VehicleFormType | null
+  formData?: LocationFormType | null
 }
 
-export default function VehicleTypeForm({
-  type,
-  category,
-  formData,
-}: VehicleTypeFormProps) {
+export default function LocationForm({ type, formData }: LocationFormProps) {
   const [previewURL, setPreviewURL] = useState<string | null>(null)
 
   const initialValues =
-    formData && type === 'Update' ? formData : VehicleTypeFormDefaultValues
+    formData && type === 'Update' ? formData : LocationFormDefaultValues
 
   // 1. Define your form.
-  const form = useForm<z.infer<typeof VehicleTypeFormSchema>>({
-    resolver: zodResolver(VehicleTypeFormSchema),
+  const form = useForm<z.infer<typeof LocationFormSchema>>({
+    resolver: zodResolver(LocationFormSchema),
     defaultValues: initialValues,
   })
 
   const fileRef = form.register('logo')
 
   // 2. Define a submit handler.
-  async function onSubmit(values: z.infer<typeof VehicleTypeFormSchema>) {
+  async function onSubmit(values: z.infer<typeof LocationFormSchema>) {
     console.log('values', values)
     const formData = new FormData()
 
     // Append other form data
 
-    formData.append('type_name', values.type_name)
-    formData.append('type_value', values.type_value)
+    formData.append('location_name', values.location_name)
+    formData.append('location_value', values.location_value)
     formData.append('sub_heading', values.sub_heading)
     formData.append('meta_title', values.meta_title)
     formData.append('meta_description', values.meta_description)
@@ -63,7 +58,7 @@ export default function VehicleTypeForm({
       formData.append('existing_logo_url', values.logo)
     }
 
-    for (var pair of formData.entries()) {
+    for (let pair of formData.entries()) {
       console.log(pair[0] + ', ' + pair[1])
     }
 
@@ -84,13 +79,13 @@ export default function VehicleTypeForm({
 
   const validateFile = (file: File) => {
     const maxSize = 300 * 1024 // 300kb
-    const maxWidth = 300
-    const maxHeight = 300
+    const maxWidth = 500
+    const maxHeight = 500
 
     if (file.size > maxSize) {
       form.setError('logo', {
         type: 'manual',
-        message: 'File size should be less than 300kb',
+        message: 'File size should be less than 500kb',
       })
       return false
     }
@@ -130,26 +125,25 @@ export default function VehicleTypeForm({
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col w-full gap-5 max-w-[700px] mx-auto px-2 bg-white rounded-2xl p-2"
+        className="flex flex-col w-full gap-5 max-w-[700px] mx-auto  bg-white rounded-3xl p-2 md:p-4 py-8 !pb-8  shadow-md"
       >
         <div className="flex flex-col gap-5 r ">
           {/* type title */}
           <FormField
             control={form.control}
-            name="type_name"
+            name="location_name"
             render={({ field }) => (
               <FormItem className="w-full mb-2 ">
-                <FormLabel className="ml-2 ">Vehicle Type Name</FormLabel>
+                <FormLabel className="ml-2 ">Location Name</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="eg: 'Airport Pickup'"
+                    placeholder="eg: 'Land Rover'"
                     {...field}
                     className="input-field"
                   />
                 </FormControl>
                 <FormDescription className="ml-2">
-                  Add your new <span className="font-semibold">{category}</span>{' '}
-                  type name.
+                  Add your Location Name
                 </FormDescription>
                 <FormMessage className="ml-2" />
               </FormItem>
@@ -159,20 +153,20 @@ export default function VehicleTypeForm({
           {/* type value */}
           <FormField
             control={form.control}
-            name="type_value"
+            name="location_value"
             render={({ field }) => (
               <FormItem className="w-full mb-2 ">
-                <FormLabel className="ml-2 ">Vehicle Type Value</FormLabel>
+                <FormLabel className="ml-2 ">Location Value</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="eg: 'airport_pickup'"
+                    placeholder="eg: 'land_rover'"
                     {...field}
                     className="input-field"
                   />
                 </FormControl>
                 <FormDescription className="ml-2">
-                  This value will be used for API interaction. Eg: for "Airport
-                  Pickup", value will be "airport_pickup"
+                  This value will be used for API interaction. Eg: for "Abu
+                  Dhabi", value will be "abu_dhabi"
                 </FormDescription>
                 <FormMessage className="ml-2" />
               </FormItem>
@@ -184,7 +178,7 @@ export default function VehicleTypeForm({
             name="sub_heading"
             render={({ field }) => (
               <FormItem className="w-full mb-2 ">
-                <FormLabel className="ml-2 ">Type Subheading</FormLabel>
+                <FormLabel className="ml-2 ">Location Subheading</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="Page Sub Heading"
@@ -193,7 +187,7 @@ export default function VehicleTypeForm({
                   />
                 </FormControl>
                 <FormDescription className="ml-2">
-                  Add the subheading for the type
+                  Add the subheading for the location
                 </FormDescription>
                 <FormMessage className="ml-2" />
               </FormItem>
@@ -205,13 +199,13 @@ export default function VehicleTypeForm({
               name="logo"
               render={({ field }) => (
                 <FormItem className=" max-w-96">
-                  <FormLabel className="ml-2 ">Type Logo</FormLabel>
+                  <FormLabel className="ml-2 ">Location Logo</FormLabel>
                   <FormControl>
                     <Input
                       type="file"
                       placeholder="Upload logo"
                       {...fileRef}
-                      className="h-16 text-center flex-center"
+                      className="h-16 text-center cursor-pointer flex-center"
                       onChange={(e) => {
                         field.onChange(e)
                         handleFileChange(e)
@@ -220,7 +214,7 @@ export default function VehicleTypeForm({
                   </FormControl>
                   <FormDescription className="ml-2">
                     Upload a logo with a maximum file size of 300KB. The logo
-                    should have dimensions not exceeding 300x300 pixels
+                    should have dimensions not exceeding 500x500 pixels
                   </FormDescription>
                   <FormMessage className="ml-2" />
                 </FormItem>
@@ -284,9 +278,31 @@ export default function VehicleTypeForm({
           type="submit"
           size="lg"
           disabled={form.formState.isSubmitting}
-          className="w-full col-span-2 mt-3 button bg-yellow hover:bg-yellow/90"
+          className="w-full flex-center col-span-2 mt-3 !text-lg !font-semibold button bg-yellow hover:bg-yellow/90"
         >
-          {form.formState.isSubmitting ? 'Submitting...' : `${type} Type `}
+          {form.formState.isSubmitting ? 'Submitting...' : `${type} Location `}{' '}
+          {false && (
+            <svg
+              className="w-5 h-5 ml-2 text-white m animate-spin"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+          )}
         </Button>
       </form>
     </Form>

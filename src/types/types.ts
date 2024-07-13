@@ -60,10 +60,25 @@ export type BrandFormType = {
   logo: any
 }
 
+export type LocationFormType = {
+  id?: string
+  location_name: string
+  location_value: string
+  sub_heading: string
+  meta_title: string
+  meta_description: string
+  logo: any
+}
+
 export type LinkFormType = {
   id: string
   label: string
   link: string
+}
+
+export type AdsFormType = {
+  id?: string
+  imageSrc: string
 }
 
 export type BrandType = {
