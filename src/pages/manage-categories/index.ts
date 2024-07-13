@@ -5,59 +5,46 @@ export const VehicleCategories: VehicleCategoriesType[] = [
     id: 1,
     label: 'Car',
     value: 'car',
-    link: '/manage-categories/car',
   },
   {
     id: 2,
     label: 'Sports Car',
     value: 'sports_car',
-    link: '/manage-categories/sports_car',
   },
   {
     id: 3,
     label: 'Cycle',
     value: 'cycle',
-    link: '/manage-categories/cycle',
   },
   {
     id: 4,
     label: 'Motorcycle',
     value: 'motorcycle',
-    link: '/manage-categories/motorcycle',
   },
   {
     id: 5,
     label: 'Sports Bike',
     value: 'sports_bike',
-    link: '/manage-categories/sports_bike',
   },
   {
     id: 6,
     label: 'Leisure Boat',
     value: 'leisure_boat',
-    link: '/manage-categories/leisure_boat',
   },
   {
     id: 7,
     label: 'Charter',
     value: 'charter',
-    link: '/manage-categories/charter',
   },
 ]
 
-type RegularVehicleType = {
+type VehicleType = {
   key: number
   name: string
   options: number
   value: string
   src: string
 }
-
-type AddMoreType = {
-  key: 'addMore'
-}
-
-type VehicleType = RegularVehicleType | AddMoreType
 
 type VehicleTypes = {
   [key: string]: VehicleType[]

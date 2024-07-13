@@ -1,5 +1,5 @@
 export type RegularLinkData = {
-  id: string | 'addMore'
+  id: string
   label: string
   link: string
 }

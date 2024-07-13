@@ -1,3 +1,4 @@
+import { VehicleCategoryType } from '@/types/types'
 import {
   BellPlus,
   CarFront,

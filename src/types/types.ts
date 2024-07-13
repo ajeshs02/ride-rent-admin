@@ -37,7 +37,6 @@ export type VehicleCategoriesType = {
   id: number | string
   label: string
   value: VehicleCategoryType
-  link: string
 }
 
 export type VehicleFormType = {
