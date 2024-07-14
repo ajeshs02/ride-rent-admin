@@ -32,19 +32,22 @@ async function fetchData(): Promise<AgentDataType[]> {
 
 export default function LiveListingPage() {
   const [data, setData] = useState<AgentDataType[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchDataAsync = async () => {
+      setLoading(true)
       const result = await fetchData()
       setData(result)
+      setLoading(false)
     }
 
     fetchDataAsync()
   }, [])
 
   return (
-    <div className="container mx-auto py-10 min-h-screen">
-      <DataTable columns={columns} data={data} />
+    <div className="container min-h-screen py-10 mx-auto">
+      <DataTable columns={columns} data={data} loading={loading} />
     </div>
   )
 }

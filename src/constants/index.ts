@@ -1,4 +1,3 @@
-import { VehicleCategoryType } from '@/types/types'
 import {
   BellPlus,
   CarFront,
@@ -20,9 +19,9 @@ export const sidebarContent = [
     link: '/new-updates',
   },
   {
-    label: 'Categories',
+    label: 'Types',
     icon: CarFront,
-    link: '/manage-categories',
+    link: '/manage-types',
   },
   { label: 'Brands', icon: Star, link: '/manage-brands' },
   { label: 'Locations', icon: MapPin, link: '/manage-locations' },

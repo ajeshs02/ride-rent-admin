@@ -70,7 +70,9 @@ export default function LinkModal({ type, linkData }: LinkModalProps) {
         tabIndex={-1}
       >
         {type === 'Add' ? (
-          'Add New Link'
+          <div className="flex-center gap-x-1 px-3 py-2 text-white  shadow-xl hover:scale-[1.02]  transition-all bg-yellow flex-center">
+            Add New Link
+          </div>
         ) : (
           <FilePenLine className="hover:text-yellow" />
         )}

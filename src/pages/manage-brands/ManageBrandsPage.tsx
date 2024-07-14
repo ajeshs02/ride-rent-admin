@@ -7,12 +7,12 @@ import GridSkelton from '@/components/loading-skelton/GridSkelton'
 import Pagination from '@/components/Pagination'
 import SearchComponent from '@/components/Search'
 
-import { VehicleCategories } from '../manage-categories'
+import { VehicleCategories } from '../manage-types'
 import CategoryDropdown from '@/components/VehicleCategoryDropdown'
 
 export default function ManageBrandsPage() {
   const [page, setPage] = useState(1)
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [selectedCategory, setSelectedCategory] = useState(VehicleCategories[0])
   const [filteredBrands, setFilteredBrands] = useState(sampleBrands)
 
@@ -112,9 +112,9 @@ export default function ManageBrandsPage() {
         )}
       </div>
 
-      <button className="fixed px-3 py-2 text-white shadow-gray-400 shadow-lg hover:scale-[1.02]  transition-all bg-yellow flex-center w-fit rounded-xl right-10 bottom-10">
+      <button className="fixed z-30 overflow-hidden cursor-pointer w-fit h-fit rounded-xl right-10 bottom-10 shadow-xl  hover:scale-[1.02]  transition-all">
         <Link
-          className="flex items-center gap-x-2"
+          className="flex-center gap-x-1 px-3 py-2 text-white  shadow-xl hover:scale-[1.02]  transition-all bg-yellow flex-center"
           to={`/manage-brands/${category}/add-brand`}
         >
           New Brand <Plus />

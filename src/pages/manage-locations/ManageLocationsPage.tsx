@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import LocationSkelton from '@/components/loading-skelton/LocationSkelton'
 
 export default function ManageLocationsPage() {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   const { org } = useAdminContext()
 
@@ -49,10 +49,9 @@ export default function ManageLocationsPage() {
           ))
         )}
       </div>
-
-      <button className="fixed px-3 py-2 text-white shadow-gray-400 shadow-lg hover:scale-[1.02]  transition-all bg-yellow flex-center w-fit rounded-xl right-10 bottom-10">
+      <button className="fixed z-30 overflow-hidden cursor-pointer w-fit h-fit rounded-xl right-10 bottom-10 shadow-xl  hover:scale-[1.02]  transition-all ">
         <Link
-          className="flex items-center gap-x-2"
+          className="px-3 py-2 text-white flex-center gap-x-1 bg-yellow"
           to={`/manage-locations/add`}
         >
           New Location <Plus />

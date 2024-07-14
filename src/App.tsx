@@ -4,31 +4,37 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import axios from 'axios'
 import Layout from './layout/Layout'
 import ErrorPage from './pages/ErrorPage'
-import EditBrandPage from './pages/manage-brands/EditBrandPage'
-import AddBrandPage from './pages/manage-locations/AddLocationPage'
-import AddLocationPage from './pages/manage-locations/AddLocationPage'
-import EditLocationPage from './pages/manage-locations/EditLocationPage'
 
 // pages import
 const LiveListingPage = lazy(
-  () => import('./pages/list-listing/LiveListingPage')
+  () => import('./pages/live-listing/LiveListingPage')
 )
 const Dashboard = lazy(() => import('./pages/dashboard/Dashboard'))
 const NewUpdatesPage = lazy(() => import('./pages/new-updates/NewUpdatesPage'))
-const ManageCategoriesPage = lazy(
-  () => import('./pages/manage-categories/ManageCategoriesPage')
+const ManageTypesPage = lazy(
+  () => import('./pages/manage-types/ManageTypesPage')
 )
-const EditTypePage = lazy(
-  () => import('./pages/manage-categories/EditTypePage')
-)
-const AddTypePage = lazy(() => import('./pages/manage-categories/AddTypePage'))
+const EditTypePage = lazy(() => import('./pages/manage-types/EditTypePage'))
+const AddTypePage = lazy(() => import('./pages/manage-types/AddTypePage'))
 
+// brands import
 const ManageBrandsPage = lazy(
   () => import('./pages/manage-brands/ManageBrandsPage')
 )
+const AddBrandPage = lazy(() => import('./pages/manage-brands/AddBrandPage'))
+const EditBrandPage = lazy(() => import('./pages/manage-brands/EditBrandPage'))
+
+// location pages
 const ManageLocationsPage = lazy(
   () => import('./pages/manage-locations/ManageLocationsPage')
 )
+const AddLocationPage = lazy(
+  () => import('./pages/manage-locations/AddLocationPage')
+)
+const EditLocationPage = lazy(
+  () => import('./pages/manage-locations/EditLocationPage')
+)
+
 const ManageLinksPage = lazy(
   () => import('./pages/manage-links/ManageLinksPage')
 )
@@ -49,19 +55,19 @@ const router = createBrowserRouter([
 
       // categories route
       {
-        path: '/manage-categories',
-        element: <Navigate to="/manage-categories/car" />,
+        path: '/manage-types',
+        element: <Navigate to="/manage-types/car" />,
       },
       {
-        path: '/manage-categories/:category',
-        element: <ManageCategoriesPage />,
+        path: '/manage-types/:category',
+        element: <ManageTypesPage />,
       },
       {
-        path: '/manage-categories/:category/add',
+        path: '/manage-types/:category/add',
         element: <AddTypePage />,
       },
       {
-        path: '/manage-categories/:category/edit/:typeId',
+        path: '/manage-types/:category/edit/:typeId',
         element: <EditTypePage />,
       },
 

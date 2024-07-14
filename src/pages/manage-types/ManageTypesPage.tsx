@@ -6,9 +6,9 @@ import { Plus } from 'lucide-react'
 import GridSkelton from '@/components/loading-skelton/GridSkelton'
 import CategoryDropdown from '@/components/VehicleCategoryDropdown'
 
-export default function ManageCategoriesPage() {
+export default function ManageTypesPage() {
   const [selectedCategory, setSelectedCategory] = useState(VehicleCategories[0])
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   const params = useParams()
 
@@ -36,13 +36,14 @@ export default function ManageCategoriesPage() {
       {/* vehicle types grid */}
 
       <div className="h-20 px-10 mb-6 flex-between">
-        <h1 className="text-2xl font-bold capitalize">
-          {selectedCategory.label} types
+        <h1 className="text-2xl font-bold ">
+          Manage <span className="text-yellow">{selectedCategory.label}</span>{' '}
+          types
         </h1>
         <CategoryDropdown
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
-          type="category"
+          type="type"
         />
       </div>
 
@@ -52,7 +53,7 @@ export default function ManageCategoriesPage() {
         ) : (
           vehicleTypeData.map((data) => (
             <Link
-              to={`/manage-categories/${selectedCategory.value}/edit/${data.key}`}
+              to={`/manage-types/${selectedCategory.value}/edit/${data.key}`}
               key={data.key}
               className=""
             >
@@ -72,10 +73,10 @@ export default function ManageCategoriesPage() {
       </div>
 
       {/* add new category */}
-      <button className="fixed px-3 py-2 text-white shadow-gray-400 shadow-lg hover:scale-[1.02]  transition-all bg-yellow flex-center w-fit rounded-xl right-10 bottom-10">
+      <button className="fixed z-30 overflow-hidden cursor-pointer w-fit h-fit rounded-xl right-10 bottom-10 shadow-xl  hover:scale-[1.02]  transition-all">
         <Link
-          className="flex items-center gap-x-2"
-          to={`/manage-categories/${selectedCategory.value}/add`}
+          className="flex-center gap-x-1 px-3 py-2 text-white  shadow-xl hover:scale-[1.02]  transition-all bg-yellow flex-center"
+          to={`/manage-types/${selectedCategory.value}/add`}
         >
           New Category <Plus />
         </Link>

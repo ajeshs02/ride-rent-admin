@@ -51,7 +51,7 @@ const Sidebar = () => {
       </div>
 
       <div
-        className={`flex flex-col items-center px-[0.6rem] h-full p-2 mt-2 ${
+        className={`flex flex-col gap-y-1 items-center px-[0.6rem] h-full p-2 mt-2 ${
           !isSmallScreen && 'shadow-md'
         }`}
       >

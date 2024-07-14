@@ -7,7 +7,7 @@ import { Link as LinkIcon, Navigation } from 'lucide-react'
 import { useAdminContext } from '@/context/AdminContext'
 
 export default function ManageLinksPage() {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   const { location } = useAdminContext()
 
@@ -23,7 +23,8 @@ export default function ManageLinksPage() {
   return (
     <section className="container h-auto min-h-screen pb-10">
       <h1 className="mt-6 mb-8 text-2xl font-bold text-center sm:text-left">
-        Currently Active Links In {location.location}
+        Currently Active Links In{' '}
+        <span className="text-yellow">{location.location}</span>
       </h1>
       <div className="flex flex-col gap-3 max-w-[800px]">
         {isLoading ? (
@@ -56,7 +57,7 @@ export default function ManageLinksPage() {
         )}
       </div>
 
-      <div className="fixed px-3 py-2 text-white shadow-gray-400 shadow-lg hover:scale-[1.02]  transition-all bg-yellow flex-center w-fit rounded-xl right-10 bottom-10">
+      <div className="fixed z-30 overflow-hidden cursor-pointer w-fit h-fit rounded-xl right-10 bottom-10 shadow-xl  hover:scale-[1.02]  transition-all ">
         <LinkModal type="Add" />
       </div>
     </section>

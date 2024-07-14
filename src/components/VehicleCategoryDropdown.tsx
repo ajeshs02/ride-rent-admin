@@ -10,12 +10,12 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { ChevronDown } from 'lucide-react'
 import { VehicleCategoriesType } from '@/types/types'
-import { VehicleCategories } from '@/pages/manage-categories'
+import { VehicleCategories } from '@/pages/manage-types'
 
 interface CategoryDropdownProps {
   selectedCategory: VehicleCategoriesType
   setSelectedCategory: (category: VehicleCategoriesType) => void
-  type: 'brand' | 'category'
+  type: 'brand' | 'type'
 }
 
 export default function CategoryDropdown({
@@ -28,8 +28,8 @@ export default function CategoryDropdown({
 
   const handleCategorySelect = (category: VehicleCategoriesType) => {
     setSelectedCategory(category)
-    if (type === 'category') {
-      navigate(`/manage-categories/${category.value}`)
+    if (type === 'type') {
+      navigate(`/manage-types/${category.value}`)
     } else if (type === 'brand') {
       navigate(`/manage-brands/${category.value}`)
     }

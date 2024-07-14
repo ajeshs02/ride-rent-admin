@@ -7,7 +7,7 @@ import DeleteModal from '@/components/modal/DeleteModal'
 import AdsSkelton from '@/components/loading-skelton/AdsSkelton'
 
 export default function ManageAdsPage() {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
 
   const { location } = useAdminContext()
 
@@ -62,7 +62,7 @@ export default function ManageAdsPage() {
         )}
       </div>
 
-      <div className="fixed z-30 px-3 py-2 text-white  shadow-xl hover:scale-[1.02]  transition-all bg-yellow flex-center w-fit rounded-xl right-10 bottom-10">
+      <div className="fixed z-30 overflow-hidden cursor-pointer w-fit h-fit rounded-xl right-10 bottom-10  shadow-xl hover:scale-[1.02] transition-all">
         <AdsModal type="Add" />
       </div>
     </section>

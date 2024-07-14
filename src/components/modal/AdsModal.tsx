@@ -21,7 +21,7 @@ export default function AdsModal({ type, adsData }: AdsModalProps) {
     <Dialog>
       <DialogTrigger tabIndex={-1}>
         {type === 'Add' ? (
-          <div className="flex-center gap-x-1">
+          <div className="flex-center gap-x-1 px-3 py-2 text-white  shadow-xl hover:scale-[1.02]  transition-all bg-yellow flex-center">
             New Ad <Plus />
           </div>
         ) : (
