@@ -1,7 +1,7 @@
 import { Skeleton } from '../ui/skeleton'
 
 export default function LocationSkelton() {
-  return Array(4)
+  return Array(8)
     .fill(null)
     .map((_, index) => (
       <div

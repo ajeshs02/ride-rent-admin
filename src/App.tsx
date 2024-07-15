@@ -6,11 +6,18 @@ import Layout from './layout/Layout'
 import ErrorPage from './pages/ErrorPage'
 
 // pages import
+const Dashboard = lazy(() => import('./pages/dashboard/Dashboard'))
+
 const LiveListingPage = lazy(
   () => import('./pages/live-listing/LiveListingPage')
 )
-const Dashboard = lazy(() => import('./pages/dashboard/Dashboard'))
+const LiveListingViewDetails = lazy(
+  () => import('./pages/live-listing/ViewDetails')
+)
 const NewUpdatesPage = lazy(() => import('./pages/new-updates/NewUpdatesPage'))
+const NewUpdatesDetailsPage = lazy(
+  () => import('./pages/new-updates/ViewDetails')
+)
 const ManageTypesPage = lazy(
   () => import('./pages/manage-types/ManageTypesPage')
 )
@@ -50,8 +57,20 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { path: '/', element: <Dashboard /> },
+
+      // live listing routes
       { path: '/live-listing', element: <LiveListingPage /> },
+      {
+        path: '/live-listing/view/:agentId',
+        element: <LiveListingViewDetails />,
+      },
+
+      // new listing routes
       { path: '/new-updates', element: <NewUpdatesPage /> },
+      {
+        path: '/new-updates/view/:agentId',
+        element: <NewUpdatesDetailsPage />,
+      },
 
       // categories route
       {

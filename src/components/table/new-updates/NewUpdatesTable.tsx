@@ -1,5 +1,3 @@
-'use client'
-
 import {
   ColumnDef,
   SortingState,
@@ -18,20 +16,28 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { Button } from '../ui/button'
+import { Button } from '../../ui/button'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
-interface DataTableProps<TData, TValue> {
+export type NewUpdateDataProps = {
+  agentId: string
+  type: string
+  agent_name: string
+  registrationDate: string
+}
+
+interface NewUpdateTableProps<TData extends NewUpdateDataProps, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
   loading: boolean
 }
 
-export function DataTable<TData, TValue>({
+export function NewUpdateTable<TData extends NewUpdateDataProps, TValue>({
   columns,
   data,
   loading,
-}: DataTableProps<TData, TValue>) {
+}: NewUpdateTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([])
   const table = useReactTable({
     data,
@@ -83,14 +89,29 @@ export function DataTable<TData, TValue>({
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
                 >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
-                  ))}
+                  {row.getVisibleCells().map((cell) => {
+                    const adminId = row.original.agentId
+                    return (
+                      <TableCell key={cell.id}>
+                        {cell.column.id === 'agent_name' ? (
+                          <Link
+                            to={`/new-updates/view/${adminId}`}
+                            className="font-semibold text-yellow hover:underline"
+                          >
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext()
+                            )}
+                          </Link>
+                        ) : (
+                          flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
+                          )
+                        )}
+                      </TableCell>
+                    )
+                  })}
                 </TableRow>
               ))
             ) : (

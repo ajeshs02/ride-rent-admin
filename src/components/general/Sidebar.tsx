@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { X } from 'lucide-react'
 import GeneralDropdown from '../LocationDropdown'
 import { OrgSelect } from '../OrgSelect'
+import NewUpdateSidebar from './NewUpdatesSidebar'
 
 const Sidebar = () => {
   const { isSidebarOpen, toggleSidebar, isSmallScreen } = useAdminContext()
@@ -56,8 +57,11 @@ const Sidebar = () => {
         }`}
       >
         {sidebarContent.map((item) => {
-          const Icon = item.icon
+          if (item.label === 'New Updates') {
+            return <NewUpdateSidebar key={item.link} /> // Render NewUpdateSidebar for "New Updates"
+          }
 
+          const Icon = item.icon
           const isActive =
             item.link === '/'
               ? location.pathname === item.link
@@ -81,7 +85,6 @@ const Sidebar = () => {
             </div>
           )
         })}
-
         <OrgSelect />
       </div>
     </aside>

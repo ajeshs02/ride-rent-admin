@@ -32,19 +32,22 @@ export default function ManageLocationsPage() {
             <Link
               to={`/manage-locations/edit/${data.id}`}
               key={data.id}
-              className="relative w-full overflow-hidden bg-white rounded-lg shadow-md h-44 group"
+              className="relative w-full overflow-hidden bg-white shadow-md rounded-xl h-44 group"
             >
-              <div className="h-[80%] max-h-[80%] w-full">
+              <div className="absolute top-0 bottom-0 left-0 right-0  bg-gradient-to-t from-black to-50% z-10" />
+              <div className="z-10 w-full h-full ">
                 {/* Image */}
                 <img
                   src={data.src}
                   alt="ad image"
-                  className="object-cover w-full h-full"
+                  loading="lazy"
+                  className="z-20 object-cover w-full h-full transition-all duration-300 group-hover:scale-110"
                 />
               </div>
-              <div>
-                <p className="p-0 mt-1 text-center lg:text-lg">{data.name}</p>
-              </div>
+
+              <p className="absolute bottom-0 z-10 p-0 mt-1 font-bold text-center text-white transform -translate-x-1/2 whitespace-nowrap left-1/2 ">
+                {data.name}
+              </p>
             </Link>
           ))
         )}
