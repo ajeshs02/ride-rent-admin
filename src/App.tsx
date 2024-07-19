@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import axios from 'axios'
 import Layout from './layout/Layout'
 import ErrorPage from './pages/ErrorPage'
+import { Toaster } from './components/ui/toaster'
 
 // pages import
 const Dashboard = lazy(() => import('./pages/dashboard/Dashboard'))
@@ -56,6 +57,7 @@ const router = createBrowserRouter([
     element: <Layout />,
     errorElement: <ErrorPage />,
     children: [
+      // dashboard route
       { path: '/', element: <Dashboard /> },
 
       // live listing routes
@@ -123,6 +125,8 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
+      {/* toast notification*/}
+      <Toaster />
     </QueryClientProvider>
   )
 }

@@ -1,3 +1,4 @@
+import { PrimaryFormType } from '@/types/formTypes'
 import {
   BellPlus,
   CarFront,
@@ -113,10 +114,7 @@ export const AdFormDefaultValues = {
 }
 
 // navbar origin dropdown temporary value/s
-export const orgs = [
-  { id: 1, label: 'UAE', value: 'uae' },
-  { id: 2, label: 'aasdf', value: 'uasfaae' },
-]
+export const orgs = [{ id: 1, label: 'UAE', value: 'uae' }]
 
 // navbar origin dropdown temporary value/s
 export const locations = [
@@ -129,3 +127,17 @@ export const locations = [
   { id: 7, location: 'Fujairah', value: 'fujairah' },
   { id: 8, location: 'Al Ain', value: 'al-ain' },
 ]
+
+// Vehicle type form default values
+export const PrimaryFormDefaultValues: PrimaryFormType = {
+  category: '',
+  type: '',
+  brand: '',
+  model: '',
+  photos: ['', '', '', '', '', '', '', ''],
+  reg_year: '',
+  reg_card: ['', ''], // 2 registration card photos
+  commercial_license: '', //  commercial license pdf
+  location: '',
+  cities: '',
+}

@@ -145,7 +145,8 @@ export default function BrandForm({
                   <Input
                     placeholder="eg: 'Land Rover'"
                     {...field}
-                    className="input-field"
+                    className={`input-field`}
+                    readOnly
                   />
                 </FormControl>
                 <FormDescription className="ml-2">

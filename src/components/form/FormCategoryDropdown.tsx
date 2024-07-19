@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react'
 type DropdownProps = {
   value?: string
   onChangeHandler?: () => void
+  placeholder?: string
 }
 
 type VehicleCategory = {
@@ -18,7 +19,11 @@ type VehicleCategory = {
   label: string
   value: string
 }
-const CategoryFormDropdown = ({ value, onChangeHandler }: DropdownProps) => {
+const CategoryFormDropdown = ({
+  value,
+  onChangeHandler,
+  placeholder = 'option',
+}: DropdownProps) => {
   const [categories, setCategories] = useState<VehicleCategory[]>([])
 
   useEffect(() => {
@@ -43,8 +48,8 @@ const CategoryFormDropdown = ({ value, onChangeHandler }: DropdownProps) => {
 
   return (
     <Select onValueChange={onChangeHandler} defaultValue={value}>
-      <SelectTrigger className="select-field ring-0 focus:ring-0 ">
-        <SelectValue placeholder="Category" />
+      <SelectTrigger className="select-field ring-0 focus:ring-0 input-fields">
+        <SelectValue placeholder={`Choose ${placeholder}`} />
       </SelectTrigger>
       <SelectContent>
         {categories.length > 0 &&

@@ -32,20 +32,4 @@ export const columns: ColumnDef<NewUpdateDataType>[] = [
     accessorKey: 'registrationDate',
     header: 'Registration Date',
   },
-  {
-    accessorKey: 'status',
-    header: '',
-    cell: () => {
-      return (
-        <div className="flex gap-x-3">
-          <Button className="text-green-500 transition-colors bg-white border border-green-500 rounded-lg hover:bg-green-500 hover:text-white">
-            Approve
-          </Button>{' '}
-          <Button className="text-red-500 transition-colors bg-white border border-red-500 rounded-lg hover:bg-red-500 hover:text-white">
-            Reject
-          </Button>
-        </div>
-      )
-    },
-  },
 ]
