@@ -181,7 +181,7 @@ export const PrimaryFormSchema = z.object({
   commercial_license: z
     .union([
       z.instanceof(File), // For newly uploaded files
-      z.string().url('Commercial license must be a valid URL'), // For existing URLs
+      z.string().url('Commercial license must be a valid URL or a File'), // For existing URLs
     ])
     .refine(
       (item) => item instanceof File || typeof item === 'string',
@@ -190,61 +190,4 @@ export const PrimaryFormSchema = z.object({
 
   location: z.string().min(1, 'State / location is required'),
   cities: z.string().min(1, 'cities are required'),
-})
-// Primary Form Schema
-export const PrimaryFormSchemaSample = z.object({
-  category: z.string().min(1, 'Category is required'),
-  state: z.string().min(1, 'State is required'),
-  city: z.string().min(1, 'City is required'),
-  brand: z.string().min(1, 'Brand is required'),
-  model: z.string().min(1, 'Model is required'),
-  reg_year: z.string().min(4, 'Registration year is required'), // Assuming a year is a 4-digit string
-  reg_number: z.string().min(1, 'Registration number is required'),
-
-  reg_card: z
-    .array(
-      z.union([
-        z.instanceof(FileList), // For newly uploaded files
-        z.string().url('Registration card must be a valid URL'), // For existing URLs
-      ])
-    )
-    .length(2, 'Exactly 2 registration card images are required')
-    .refine(
-      (arr) =>
-        arr.every(
-          (item) =>
-            (item instanceof FileList && item.length === 1) ||
-            typeof item === 'string'
-        ),
-      'Each registration card must be either a file or a URL'
-    ),
-  commercial_license: z
-    .union([
-      z.instanceof(FileList), // For newly uploaded files
-      z.string().url('Commercial license must be a valid URL'), // For existing URLs
-    ])
-    .refine(
-      (item) =>
-        (item instanceof FileList && item.length === 1) ||
-        typeof item === 'string',
-      'Commercial license must be either a file or a URL'
-    ),
-  photos: z
-    .array(
-      z.union([
-        z.instanceof(FileList), // For newly uploaded files
-        z.string().url('Photo must be a valid URL'), // For existing URLs
-      ])
-    )
-    .max(8, 'You can upload up to 8 photos only')
-    .min(1, 'At least one photo is required')
-    .refine(
-      (arr) =>
-        arr.every(
-          (item) =>
-            (item instanceof FileList && item.length === 1) ||
-            typeof item === 'string'
-        ),
-      'Each photo must be either a file or a URL'
-    ),
 })

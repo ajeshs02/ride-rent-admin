@@ -5,39 +5,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { VehicleGeneralCategories } from '@/constants'
 import { useEffect, useState } from 'react'
 
 type DropdownProps = {
   value?: string
-  onChangeHandler?: () => void
+  onChangeHandler: (value: string) => void
   placeholder?: string
+  options: { label: string; value: string }[]
   isDisabled?: boolean
 }
 
-type VehicleCategory = {
-  id: string | number
-  label: string
-  value: string
-}
-const CategoryFormDropdown = ({
+const SpecificationDropdown = ({
   value,
   onChangeHandler,
   placeholder = 'option',
+  options,
   isDisabled = false,
 }: DropdownProps) => {
-  const [categories, setCategories] = useState<VehicleCategory[]>([])
-
-  useEffect(() => {
-    // Simulate data fetching delay
-    const fetchData = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 2000))
-      setCategories(VehicleGeneralCategories)
-    }
-
-    fetchData()
-  }, [])
-
   return (
     <Select
       onValueChange={onChangeHandler}
@@ -51,18 +35,18 @@ const CategoryFormDropdown = ({
         />
       </SelectTrigger>
       <SelectContent>
-        {categories.length > 0 &&
-          categories.map((category) => (
+        {options.length > 0 &&
+          options.map((option) => (
             <SelectItem
-              key={category.id}
-              value={category.value}
+              key={option.value}
+              value={option.value}
               className="select-item p-regular-14"
             >
-              {category.label}
+              {option.label}
             </SelectItem>
           ))}
       </SelectContent>
     </Select>
   )
 }
-export default CategoryFormDropdown
+export default SpecificationDropdown

@@ -24,6 +24,8 @@ import { PrimaryFormType } from '@/types/formTypes'
 // date picker
 import * as React from 'react'
 import YearPicker from '../YearPicker'
+import FileUpload from '../file-upload/VehicleImagesUpload'
+import PdfUpload from '../file-upload/PdfUpload'
 
 type PrimaryFormProps = {
   type: 'Add' | 'Update'
@@ -37,7 +39,7 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
     photos: [],
   })
 
-  const [date, setDate] = React.useState<Date>()
+  const [isEdit, setIsEdit] = useState<boolean>(false)
 
   const initialValues =
     formData && type === 'Update' ? formData : PrimaryFormDefaultValues
@@ -118,6 +120,7 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
                       onChangeHandler={field.onChange}
                       value={initialValues.category}
                       placeholder="category"
+                      isDisabled={true}
                     />
                   </FormControl>
                   <FormDescription className="ml-2">
@@ -128,7 +131,6 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
               </FormItem>
             )}
           />
-
           {/* type of the vehicle */}
           <FormField
             control={form.control}
@@ -150,12 +152,11 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
                   <FormDescription className="ml-2">
                     Type of the vehicle
                   </FormDescription>
+                  <FormMessage />
                 </div>
-                <FormMessage />
               </FormItem>
             )}
           />
-
           {/* brand name */}
           <FormField
             control={form.control}
@@ -171,6 +172,7 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
                       onChangeHandler={field.onChange}
                       value={initialValues.brand}
                       placeholder="brand"
+                      isDisabled={false}
                     />
                   </FormControl>
                   <FormDescription className="ml-2">
@@ -181,7 +183,6 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
               </FormItem>
             )}
           />
-
           {/* model name */}
           <FormField
             control={form.control}
@@ -207,9 +208,8 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
               </FormItem>
             )}
           />
-
           {/* Vehicle Photos */}
-          <div className="flex flex-col gap-x-10">
+          {/* <div className="flex flex-col gap-x-10">
             <FormField
               control={form.control}
               name="photos"
@@ -255,8 +255,14 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
                 ))}
               </div>
             )}
-          </div>
-
+          </div> */}
+          <FileUpload
+            name="photos"
+            label="Vehicle Photos"
+            control={form.control}
+            description="Upload up to 8 photos of the vehicle with a maximum file size of 300KB each. The images should have dimensions not exceeding 300x300 pixels."
+            initialUrls={type === 'Update' ? initialValues.photos : []}
+          />
           {/* registered year */}
           <FormField
             control={form.control}
@@ -282,9 +288,16 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
               </FormItem>
             )}
           />
-
           {/* Registration Card*/}
-          <div className="flex max-sm:flex-col gap-x-10">
+          <FileUpload
+            name="reg_card"
+            label="Registration Card"
+            control={form.control}
+            description="Upload 2 registration card images with a maximum file size of 300KB each. The images should have dimensions not exceeding 300x300 pixels."
+            maxFiles={2}
+            initialUrls={type === 'Update' ? initialValues.photos : []}
+          />
+          {/* <div className="flex max-sm:flex-col gap-x-10">
             <FormField
               control={form.control}
               name="reg_card"
@@ -331,11 +344,16 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
                 ))}
               </div>
             )}
-          </div>
-          {/* </div> */}
+          </div> */}
 
           {/* commercial license */}
-          <div className="flex max-sm:flex-col gap-x-10">
+          <PdfUpload
+            name="commercial_license"
+            label="Commercial License / Mulkia"
+            description="Upload images or PDF documents as supporting files."
+            control={form.control}
+          />
+          {/* <div className="flex max-sm:flex-col gap-x-10">
             <FormField
               control={form.control}
               name="commercial_license"
@@ -349,6 +367,7 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
                     <FormControl>
                       <Input
                         type="file"
+                        accept=".pdf, image/*"
                         placeholder="Upload commercial license"
                         {...commercialLicenseRef}
                         className="h-16 text-center cursor-pointer w-96"
@@ -377,8 +396,7 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
                 />
               </div>
             )}
-          </div>
-
+          </div> */}
           {/* Location(state) */}
           <FormField
             control={form.control}
@@ -404,7 +422,6 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
               </FormItem>
             )}
           />
-
           {/* cities */}
           <FormField
             control={form.control}
@@ -437,7 +454,7 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
           type="submit"
           size="lg"
           disabled={form.formState.isSubmitting}
-          className="w-full flex-center col-span-2 mt-3 !text-lg !font-semibold button bg-yellow hover:bg-darkYellow"
+          className="w-full md:w-10/12 lg:w-8/12 mx-auto flex-center col-span-2 mt-3 !text-lg !font-semibold button bg-yellow hover:bg-darkYellow"
         >
           {type === 'Add' ? 'Add Vehicle' : 'Update Vehicle'}
         </Button>

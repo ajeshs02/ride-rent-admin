@@ -130,13 +130,13 @@ export const locations = [
 
 // Vehicle type form default values
 export const PrimaryFormDefaultValues: PrimaryFormType = {
-  category: '',
+  category: 'car',
   type: '',
   brand: '',
   model: '',
-  photos: ['', '', '', '', '', '', '', ''],
+  photos: [],
   reg_year: '',
-  reg_card: ['', ''], // 2 registration card photos
+  reg_card: [], // 2 registration card photos
   commercial_license: '', //  commercial license pdf
   location: '',
   cities: '',
