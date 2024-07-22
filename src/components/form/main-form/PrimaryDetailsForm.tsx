@@ -16,6 +16,8 @@ import {
 
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+
 import CategoryFormDropdown from '../FormCategoryDropdown'
 import { PrimaryFormDefaultValues } from '@/constants'
 import { PrimaryFormSchema } from '@/lib/validator'
@@ -24,7 +26,12 @@ import { PrimaryFormType } from '@/types/formTypes'
 // date picker
 import * as React from 'react'
 import YearPicker from '../YearPicker'
-import FileUpload from '../file-upload/VehicleImagesUpload'
+import FileUpload from '../file-upload/ImagesUpload'
+import { Checkbox } from '@/components/ui/checkbox'
+import { Label } from '@/components/ui/label'
+import { PhoneInput } from 'react-international-phone'
+import 'react-international-phone/style.css'
+import RentalDetailsFormField from '../RentalDetailsFormField'
 import PdfUpload from '../file-upload/PdfUpload'
 
 type PrimaryFormProps = {
@@ -209,60 +216,20 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
             )}
           />
           {/* Vehicle Photos */}
-          {/* <div className="flex flex-col gap-x-10">
-            <FormField
-              control={form.control}
-              name="photos"
-              render={({ field }) => (
-                <FormItem className="flex w-full mb-2 max-sm:flex-col ">
-                  <FormLabel className="flex justify-between mt-4 ml-2 text-base w-[18rem] md:min-w-[13rem]  lg:text-lg">
-                    Vehicle Photos <span className="mr-5 max-sm:hidden">:</span>
-                  </FormLabel>
-                  <div className="flex-col items-start w-full">
-                    <FormControl className="">
-                      <Input
-                        type="file"
-                        multiple={true}
-                        placeholder="Upload photos"
-                        {...photosRef}
-                        className="h-16 text-center cursor-pointer w-96"
-                        onChange={(e) => {
-                          field.onChange(e)
-                          handleFileChange(e, 'photos')
-                        }}
-                      />
-                    </FormControl>
-                    <FormDescription className="ml-2">
-                      Upload up to 8 photos of the vehicle with a maximum file
-                      size of 300KB each. The images should have dimensions not
-                      exceeding 300x300 pixels.
-                    </FormDescription>
-                    <FormMessage className="ml-2" />
-                  </div>
-                </FormItem>
-              )}
-            />
-            {previewURLs.photos.length > 0 && (
-              <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-8 sm:ml-36 md:ml-44 lg:ml-52 w-fit">
-                {previewURLs.photos.map((url, index) => (
-                  <div className="w-16 h-16 m-2" key={index}>
-                    <img
-                      src={url}
-                      alt={`Vehicle Photo Preview ${index + 1}`}
-                      className="object-cover w-full h-full max-w-full rounded-md"
-                    />
-                  </div>
-                ))}
-              </div>
-            )}
-          </div> */}
-          <FileUpload
-            name="photos"
-            label="Vehicle Photos"
+          <FormField
             control={form.control}
-            description="Upload up to 8 photos of the vehicle with a maximum file size of 300KB each. The images should have dimensions not exceeding 300x300 pixels."
-            initialUrls={type === 'Update' ? initialValues.photos : []}
+            name="photos"
+            render={({ field }) => (
+              <FileUpload
+                name="photos"
+                label="Vehicle Photos"
+                control={form.control}
+                description="Upload up to 8 photos of the vehicle with a maximum file size of 300KB each. The images should have dimensions not exceeding 300x300 pixels."
+                initialUrls={type === 'Update' ? initialValues.photos : []}
+              />
+            )}
           />
+
           {/* registered year */}
           <FormField
             control={form.control}
@@ -289,114 +256,176 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
             )}
           />
           {/* Registration Card*/}
-          <FileUpload
-            name="reg_card"
-            label="Registration Card"
+          <FormField
             control={form.control}
-            description="Upload 2 registration card images with a maximum file size of 300KB each. The images should have dimensions not exceeding 300x300 pixels."
-            maxFiles={2}
-            initialUrls={type === 'Update' ? initialValues.photos : []}
-          />
-          {/* <div className="flex max-sm:flex-col gap-x-10">
-            <FormField
-              control={form.control}
-              name="reg_card"
-              render={({ field }) => (
-                <FormItem className="flex w-full mb-2 max-sm:flex-col ">
-                  <FormLabel className="flex justify-between mt-4 ml-2 text-base w-[18rem] md:min-w-[13rem] lg:text-lg">
-                    Registration Card{' '}
-                    <span className="mr-5 max-sm:hidden">:</span>
-                  </FormLabel>
-                  <div className="flex-col items-start w-full">
-                    <FormControl>
-                      <Input
-                        type="file"
-                        multiple
-                        placeholder="Upload registration card"
-                        {...regCardRef}
-                        className="!w-full h-16 text-center cursor-pointer md:w-96"
-                        onChange={(e) => {
-                          field.onChange(e)
-                          handleFileChange(e, 'reg_card')
-                        }}
-                      />
-                    </FormControl>
-                    <FormDescription className="ml-2">
-                      Upload 2 registration card images with a maximum file size
-                      of 300KB each. The images should have dimensions not
-                      exceeding 300x300 pixels.
-                    </FormDescription>
-                    <FormMessage className="ml-2" />
-                  </div>
-                </FormItem>
-              )}
-            />
-            {previewURLs.reg_card.length > 0 && (
-              <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-8 sm:ml-36 md:ml-44 lg:ml-52 w-fit">
-                {previewURLs.reg_card.map((url, index) => (
-                  <div className="w-16 h-16 m-2" key={index}>
-                    <img
-                      src={url}
-                      alt={`Registration Card Preview ${index + 1}`}
-                      className="object-cover w-full h-full max-w-full rounded-md"
-                    />
-                  </div>
-                ))}
-              </div>
+            name="reg_card"
+            render={({ field }) => (
+              <FileUpload
+                name="reg_card"
+                label="Registration Card"
+                control={form.control}
+                description="Upload 2 registration card images with a maximum file size of 300KB each. The images should have dimensions not exceeding 300x300 pixels."
+                maxFiles={2}
+                initialUrls={type === 'Update' ? initialValues.reg_card : []}
+              />
             )}
-          </div> */}
+          />
 
           {/* commercial license */}
-          <PdfUpload
-            name="commercial_license"
-            label="Commercial License / Mulkia"
-            description="Upload images or PDF documents as supporting files."
+          <FormField
             control={form.control}
-          />
-          {/* <div className="flex max-sm:flex-col gap-x-10">
-            <FormField
-              control={form.control}
-              name="commercial_license"
-              render={({ field }) => (
-                <FormItem className="flex w-full mb-2 max-sm:flex-col ">
-                  <FormLabel className="flex justify-between mt-4 ml-2 text-base w-[18rem] md:min-w-[13rem] lg:text-lg">
-                    Commercial License / Mulkia
-                    <span className="mr-5 max-sm:hidden">:</span>
-                  </FormLabel>
-                  <div className="flex-col items-start w-full">
-                    <FormControl>
-                      <Input
-                        type="file"
-                        accept=".pdf, image/*"
-                        placeholder="Upload commercial license"
-                        {...commercialLicenseRef}
-                        className="h-16 text-center cursor-pointer w-96"
-                        onChange={(e) => {
-                          field.onChange(e)
-                          handleFileChange(e, 'commercial_license')
-                        }}
-                      />
-                    </FormControl>
-                    <FormDescription className="ml-2">
-                      Upload a commercial license with a maximum file size of
-                      300KB. The image should have dimensions not exceeding
-                      300x300 pixels.
-                    </FormDescription>
-                    <FormMessage className="ml-2" />
-                  </div>
-                </FormItem>
-              )}
-            />
-            {previewURLs.commercial_license.length > 0 && (
-              <div className="mt-6 w-44 ">
-                <img
-                  src={previewURLs.commercial_license[0]}
-                  alt="Commercial License Preview"
-                  className="object-contain h-auto max-w-full rounded-md"
-                />
-              </div>
+            name="commercial_license"
+            render={({ field }) => (
+              <PdfUpload
+                name="commercial_license"
+                label="Commercial License / Mulkia"
+                control={form.control}
+                description="Upload images or PDF documents as supporting files."
+                initialUrls={
+                  type === 'Update'
+                    ? initialValues.commercial_license
+                      ? [initialValues.commercial_license]
+                      : []
+                    : []
+                }
+              />
             )}
-          </div> */}
+          />
+
+          {/* Lease */}
+          <FormField
+            control={form.control}
+            name="lease"
+            render={({ field }) => (
+              <FormItem className="flex w-full mb-2 max-sm:flex-col">
+                <FormLabel className="flex justify-between mt-4 ml-2 text-base w-72 lg:text-lg">
+                  Lease <span className="mr-5 max-sm:hidden">:</span>
+                </FormLabel>
+                <div className="flex-col items-start w-full">
+                  <FormControl>
+                    <div className="flex items-center mt-3 space-x-2">
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                        className="w-5 h-5 bg-white data-[state=checked]:bg-yellow data-[state=checked]:border-none"
+                        id="lease"
+                      />
+                      <label
+                        htmlFor="lease"
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      >
+                        Available for lease?
+                      </label>
+                    </div>
+                  </FormControl>
+                  <FormDescription className="mt-1 ml-2">
+                    Select if this vehicle is available for lease
+                  </FormDescription>
+                  <FormMessage className="ml-2" />
+                </div>
+              </FormItem>
+            )}
+          />
+
+          {/* Specification */}
+          <FormField
+            control={form.control}
+            name="specification"
+            render={({ field }) => (
+              <FormItem className="flex w-full mb-2 max-sm:flex-col">
+                <FormLabel className="flex justify-between mt-4 ml-2 text-base w-72 lg:text-lg">
+                  Specification <span className="mr-5 max-sm:hidden">:</span>
+                </FormLabel>
+                <div className="flex-col items-start w-full ">
+                  <FormControl className="mt-2">
+                    <RadioGroup
+                      value={field.value}
+                      onValueChange={field.onChange}
+                      className="flex items-center gap-x-5"
+                      defaultValue="UAE"
+                    >
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="UAE" id="UAE" />
+                        <Label htmlFor="UAE">UAE</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="USA" id="USA" />
+                        <Label htmlFor="USA">USA</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="Others" id="others" />
+                        <Label htmlFor="others">Others</Label>
+                      </div>
+                    </RadioGroup>
+                  </FormControl>
+                  <FormDescription className="mt-1 ml-2">
+                    Select the specification region
+                  </FormDescription>
+                  <FormMessage className="ml-2" />
+                </div>
+              </FormItem>
+            )}
+          />
+
+          {/* mobile */}
+          <FormField
+            control={form.control}
+            name="mobile"
+            render={({ field }) => (
+              <FormItem className="flex w-full mb-2 max-sm:flex-col">
+                <FormLabel className="flex justify-between mt-4 ml-2 text-base w-72 lg:text-lg">
+                  Mobile <span className="mr-5 max-sm:hidden">:</span>
+                </FormLabel>
+                <div className="flex-col items-start w-full">
+                  <FormControl>
+                    <PhoneInput
+                      defaultCountry="ae"
+                      value={field.value}
+                      onChange={(value) => field.onChange(value)}
+                      className="flex items-center"
+                      inputClassName="input-field !w-full !text-base"
+                      countrySelectorStyleProps={{
+                        className:
+                          'bg-white !border-none outline-none !rounded-xl  mr-1',
+                        style: {
+                          border: 'none ',
+                        },
+                        buttonClassName:
+                          '!border-none outline-none !h-[52px] !w-[50px] !rounded-xl ',
+                      }}
+                    />
+                  </FormControl>
+                  <FormDescription className="ml-2">
+                    Add Mobile Number
+                  </FormDescription>
+                  <FormMessage className="ml-2" />
+                </div>
+              </FormItem>
+            )}
+          />
+
+          {/* rental details */}
+          <FormField
+            control={form.control}
+            name="rentalDetails"
+            render={({ field }) => (
+              <FormItem className="flex w-full mb-2 max-sm:flex-col">
+                <FormLabel className="flex justify-between mt-4 ml-2 text-base w-72 lg:text-lg">
+                  Rental Details <span className="mr-5 max-sm:hidden">:</span>
+                </FormLabel>
+                <div className="flex-col items-start w-full">
+                  <FormControl>
+                    <RentalDetailsFormField rentalDetails={field.value} />
+                  </FormControl>
+                  <FormDescription className="mt-2 ml-2">
+                    Add Rental Details
+                  </FormDescription>
+                  <FormMessage className="ml-2" />
+                </div>
+              </FormItem>
+            )}
+          />
+
           {/* Location(state) */}
           <FormField
             control={form.control}

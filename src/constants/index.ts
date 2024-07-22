@@ -128,7 +128,7 @@ export const locations = [
   { id: 8, location: 'Al Ain', value: 'al-ain' },
 ]
 
-// Vehicle type form default values
+// primary details form default values
 export const PrimaryFormDefaultValues: PrimaryFormType = {
   category: 'car',
   type: '',
@@ -137,7 +137,15 @@ export const PrimaryFormDefaultValues: PrimaryFormType = {
   photos: [],
   reg_year: '',
   reg_card: [], // 2 registration card photos
-  commercial_license: '', //  commercial license pdf
+  commercial_license: '', // commercial license pdf
+  lease: false,
+  specification: 'UAE',
+  rentalDetails: {
+    day: { enabled: false, rentInAED: '', mileageLimit: '' },
+    week: { enabled: false, rentInAED: '', mileageLimit: '' },
+    month: { enabled: false, rentInAED: '', mileageLimit: '' },
+  },
+  mobile: '',
   location: '',
   cities: '',
 }

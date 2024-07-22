@@ -54,7 +54,6 @@ export default function ViewDetails() {
       const fetchedCategory: VehicleCategoryType = 'car' // Replace with actual fetch logic
       setCategory(fetchedCategory)
       setLoading(false)
-      handleTabChange('specifications')
     }, 1500)
   }, [])
 
@@ -89,7 +88,7 @@ export default function ViewDetails() {
           </TabsList>
           <TabsContent value="primary" className="flex-center">
             <Suspense fallback={<LazyLoader />}>
-              <PrimaryDetailsForm type="Update" />
+              <PrimaryDetailsForm type="Add" />
             </Suspense>
           </TabsContent>
           <TabsContent value="specifications" className="flex-center">
@@ -102,7 +101,7 @@ export default function ViewDetails() {
           </TabsContent>
           <TabsContent value="features" className="flex-center">
             <Suspense fallback={<LazyLoader />}>
-              <FeaturesDetailsForm />
+              <FeaturesDetailsForm type="Add" category="car" />
             </Suspense>
           </TabsContent>
         </Tabs>

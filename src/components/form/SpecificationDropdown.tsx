@@ -5,7 +5,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { useEffect, useState } from 'react'
 
 type DropdownProps = {
   value?: string

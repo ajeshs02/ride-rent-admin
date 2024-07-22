@@ -2,7 +2,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 import * as z from 'zod'
-import 'react-datepicker/dist/react-datepicker.css'
 
 import {
   Form,

@@ -142,6 +142,13 @@ export const AdsFormSchema = z.object({
     }, 'Image must be either a File or a URL'),
 })
 
+// sub schema for rental details in primary form
+const RentalDetailSchema = z.object({
+  enabled: z.boolean().default(false),
+  rentInAED: z.string().optional(),
+  mileageLimit: z.string().optional(),
+})
+
 // Primary Form Schema
 export const PrimaryFormSchema = z.object({
   category: z.string().min(1, 'Category is required'),
@@ -181,13 +188,27 @@ export const PrimaryFormSchema = z.object({
   commercial_license: z
     .union([
       z.instanceof(File), // For newly uploaded files
-      z.string().url('Commercial license must be a valid URL or a File'), // For existing URLs
+      z.string().url('Commercial license must be a valid URL'), // For existing URLs
     ])
     .refine(
       (item) => item instanceof File || typeof item === 'string',
       'Commercial license must be either a file or a URL'
     ),
-
+  lease: z.boolean().default(false),
+  specification: z.enum(['USA', 'UAE', 'Other'], {
+    required_error: 'Spec is required',
+  }),
+  rentalDetails: z
+    .object({
+      day: RentalDetailSchema,
+      week: RentalDetailSchema,
+      month: RentalDetailSchema,
+    })
+    .refine(
+      (data) => data.day.enabled || data.week.enabled || data.month.enabled,
+      'At least one rental option (day, week, or month) must be enabled'
+    ),
+  mobile: z.string().min(1, 'contact number is required'),
   location: z.string().min(1, 'State / location is required'),
   cities: z.string().min(1, 'cities are required'),
 })

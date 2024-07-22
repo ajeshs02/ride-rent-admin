@@ -15,6 +15,19 @@ const createSpecificationSchemaForCategory = (
 
 export default createSpecificationSchemaForCategory
 
+type FeatureOption = { label: string; value: string }
+
+// Function to create dynamic feature form zod schema based on the currently chosen vehicle category
+export const createFeatureSchemaForCategory = (
+  fields: Record<string, FeatureOption[]>
+) => {
+  const schemaObject = Object.keys(fields).reduce((acc, field) => {
+    acc[field] = z.array(z.string()) // Each field should be an array of strings
+    return acc
+  }, {} as Record<string, z.ZodTypeAny>)
+  return z.object({ features: z.object(schemaObject) })
+}
+
 // mapping function to format the label name .
 // For example, "year_of_manufacture" will be converted to "Year Of Manufacturer
 export const formatFieldName = (field: string): string => {

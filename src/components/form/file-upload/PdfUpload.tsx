@@ -7,7 +7,6 @@ import {
   FormLabel,
   FormDescription,
   FormMessage,
-  FormField,
 } from '@/components/ui/form'
 
 type PdfUploadProps = {
@@ -37,9 +36,11 @@ const PdfUpload: React.FC<PdfUploadProps> = ({
     initialUrls[0]?.split('/').pop() || null
   )
 
-  const handleFileChange = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  useEffect(() => {
+    setValue(name, initialUrls[0] || null)
+  }, [initialUrls, setValue, name])
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
     if (!files || files.length === 0) return
 
@@ -49,10 +50,14 @@ const PdfUpload: React.FC<PdfUploadProps> = ({
       : null
     setPreviewURL(fileURL)
     setFileName(file.name)
-    setValue(name, file)
+    setValue(name, file) // Ensure the value is set as a File object
 
     // Clear errors related to this field
     clearErrors(name)
+
+    // Log the file type and value to debug
+    console.log('File type:', file.type)
+    console.log('File value:', file)
   }
 
   const handleDelete = () => {
@@ -61,68 +66,59 @@ const PdfUpload: React.FC<PdfUploadProps> = ({
     setValue(name, null)
   }
 
-  useEffect(() => {
-    setValue(name, initialUrls[0] || null)
-  }, [initialUrls, setValue, name])
-
   return (
-    <FormField
-      control={control}
-      name={name}
-      render={({ field }) => (
-        <FormItem className="flex w-full mb-2 max-sm:flex-col">
-          <FormLabel className="flex justify-between mt-4 ml-2 text-base w-[18rem] md:min-w-[13rem] lg:text-lg">
-            {label} <span className="mr-5 max-sm:hidden">:</span>
-          </FormLabel>
-          <div className="flex-col items-start w-full">
-            <FormControl>
-              <Controller
-                name={name}
-                control={control}
-                render={({ field }) => (
-                  <Input
-                    type="file"
-                    accept="image/*,application/pdf"
-                    className="h-16 text-center cursor-pointer w-96"
-                    onChange={(e) => {
-                      field.onChange(e)
-                      handleFileChange(e)
-                    }}
-                  />
-                )}
+    <FormItem className="flex w-full mb-2 max-sm:flex-col">
+      <FormLabel className="flex justify-between mt-4 ml-2 text-base w-[18rem] md:min-w-[13rem] lg:text-lg">
+        {label} <span className="mr-5 max-sm:hidden">:</span>
+      </FormLabel>
+      <div className="flex-col items-start w-full">
+        <FormControl>
+          <Controller
+            name={name}
+            control={control}
+            render={({ field }) => (
+              <Input
+                type="file"
+                accept="image/*,application/pdf"
+                className="h-16 text-center cursor-pointer w-96"
+                onChange={(e) => {
+                  const file = e.target.files ? e.target.files[0] : null
+                  field.onChange(file)
+                  handleFileChange(e)
+                }}
               />
-            </FormControl>
-            <FormDescription className="ml-2">{description}</FormDescription>
-            {errors[name] && <FormMessage className="ml-2" />}
+            )}
+          />
+        </FormControl>
+        <FormDescription className="ml-2">{description}</FormDescription>
+        {errors[name] && <FormMessage className="ml-2" />}
 
-            {(previewURL || fileName) && (
-              <div className="flex flex-col items-center w-fit relative mt-2">
-                {previewURL ? (
-                  <div className="w-32 h-32 m-2 relative">
-                    <img
-                      src={previewURL}
-                      alt="Preview"
-                      className="object-cover w-full h-full max-w-full rounded-md"
-                    />
-                  </div>
-                ) : (
-                  <div className="w-32 h-32 flex items-center justify-center bg-gray-100 border border-dashed border-gray-400 rounded-md m-2">
-                    <span>{fileName}</span>
-                  </div>
-                )}
-                <button
-                  type="button"
-                  className="absolute right-0 top-0 text-red-500 bg-white rounded-full p-1"
-                  onClick={handleDelete}
-                >
-                  &#x2715;
-                </button>
+        {(previewURL || fileName) && (
+          <div className="relative flex flex-col items-center mt-2 w-fit">
+            {previewURL ? (
+              <div className="relative w-32 h-32 m-2">
+                <img
+                  src={previewURL}
+                  alt="Preview"
+                  className="object-cover w-full h-full max-w-full rounded-md"
+                />
+              </div>
+            ) : (
+              <div className="flex items-center justify-center w-32 h-32 m-2 bg-gray-100 border border-gray-400 border-dashed rounded-md">
+                <span>{fileName}</span>
               </div>
             )}
+            <button
+              type="button"
+              className="absolute top-0 right-0 p-1 text-red-500 bg-white rounded-full"
+              onClick={handleDelete}
+            >
+              &#x2715;
+            </button>
           </div>
-        </FormItem>
-      )}
-    />
+        )}
+      </div>
+    </FormItem>
   )
 }
 
