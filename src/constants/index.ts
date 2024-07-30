@@ -131,13 +131,13 @@ export const locations = [
 // primary details form default values
 export const PrimaryFormDefaultValues: PrimaryFormType = {
   category: 'car',
-  type: '',
+  vehicleType: '',
   brand: '',
   model: '',
-  photos: [],
-  reg_year: '',
-  reg_card: [], // 2 registration card photos
-  commercial_license: '', // commercial license pdf
+  photos: [], //upto 8 photos of the vehicle
+  regYear: '',
+  regCard: [], // 2 registration card photos
+  commercialLicense: [], // commercial license pdf or image
   lease: false,
   specification: 'UAE',
   rentalDetails: {

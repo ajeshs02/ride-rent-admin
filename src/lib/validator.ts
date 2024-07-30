@@ -142,21 +142,20 @@ export const AdsFormSchema = z.object({
     }, 'Image must be either a File or a URL'),
 })
 
-// sub schema for rental details in primary form
+// Sub-schema for rental details in the primary form
 const RentalDetailSchema = z.object({
-  enabled: z.boolean().default(false),
-  rentInAED: z.string().optional(),
-  mileageLimit: z.string().optional(),
+  enabled: z.boolean(),
+  rentInAED: z.string().min(1, 'Rent in AED is required').optional(),
+  mileageLimit: z.string().min(1, 'Mileage limit is required').optional(),
 })
 
 // Primary Form Schema
 export const PrimaryFormSchema = z.object({
   category: z.string().min(1, 'Category is required'),
-  type: z.string().min(1, 'Type is required'),
+  vehicleType: z.string().min(1, 'Type is required'),
   brand: z.string().min(1, 'Brand is required'),
   model: z.string().min(1, 'Model is required'),
-  reg_year: z.string().min(1, 'Reg Year is required'),
-  reg_number: z.string().min(1, 'Registration number is required'),
+  regYear: z.string().min(1, 'Reg Year is required'),
   photos: z
     .array(
       z.union([
@@ -171,7 +170,7 @@ export const PrimaryFormSchema = z.object({
         arr.every((item) => item instanceof File || typeof item === 'string'),
       'Each photo must be either a file or a URL'
     ),
-  reg_card: z
+  regCard: z
     .array(
       z.union([
         z.instanceof(File), // For newly uploaded files
@@ -184,31 +183,74 @@ export const PrimaryFormSchema = z.object({
         arr.every((item) => item instanceof File || typeof item === 'string'),
       'Each registration card must be either a file or a URL'
     ),
-
-  commercial_license: z
-    .union([
-      z.instanceof(File), // For newly uploaded files
-      z.string().url('Commercial license must be a valid URL'), // For existing URLs
-    ])
+  commercialLicense: z
+    .array(
+      z.union([
+        z.instanceof(File), // For newly uploaded files
+        z.string().url('Photo must be a valid URL'), // For existing URLs
+      ])
+    )
+    .max(1, 'You can upload up to one pdf/image only')
+    .min(1, 'At least one pdf/image is required')
     .refine(
-      (item) => item instanceof File || typeof item === 'string',
-      'Commercial license must be either a file or a URL'
+      (arr) =>
+        arr.every((item) => item instanceof File || typeof item === 'string'),
+      'Each pdf/photo must be either a file or a URL'
     ),
   lease: z.boolean().default(false),
   specification: z.enum(['USA', 'UAE', 'Other'], {
-    required_error: 'Spec is required',
+    required_error: 'Specification is required',
   }),
   rentalDetails: z
     .object({
-      day: RentalDetailSchema,
-      week: RentalDetailSchema,
-      month: RentalDetailSchema,
+      day: RentalDetailSchema.refine(
+        (data) => {
+          if (data.enabled) {
+            return !!data.rentInAED && !!data.mileageLimit
+          }
+          return true
+        },
+        {
+          message: 'Rent in AED and Mileage limit are required for day',
+          path: ['rentInAED', 'mileageLimit'],
+        }
+      ),
+      week: RentalDetailSchema.refine(
+        (data) => {
+          if (data.enabled) {
+            return !!data.rentInAED && !!data.mileageLimit
+          }
+          return true
+        },
+        {
+          message: 'Rent in AED and Mileage limit are required for week',
+          path: ['rentInAED', 'mileageLimit'],
+        }
+      ),
+      month: RentalDetailSchema.refine(
+        (data) => {
+          if (data.enabled) {
+            return !!data.rentInAED && !!data.mileageLimit
+          }
+          return true
+        },
+        {
+          message: 'Rent in AED and Mileage limit are required for month',
+          path: ['rentInAED', 'mileageLimit'],
+        }
+      ),
     })
     .refine(
-      (data) => data.day.enabled || data.week.enabled || data.month.enabled,
-      'At least one rental option (day, week, or month) must be enabled'
+      (data) => {
+        return data.day.enabled || data.week.enabled || data.month.enabled
+      },
+      {
+        message:
+          'At least one rental option (day, week, or month) must be enabled',
+        path: ['rentalDetails'],
+      }
     ),
-  mobile: z.string().min(1, 'contact number is required'),
+  mobile: z.string().min(1, 'Contact number is required'),
   location: z.string().min(1, 'State / location is required'),
-  cities: z.string().min(1, 'cities are required'),
+  cities: z.string().min(1, 'Cities are required'),
 })

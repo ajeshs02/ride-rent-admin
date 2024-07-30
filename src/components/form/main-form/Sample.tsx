@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
@@ -30,6 +30,7 @@ import { PhoneInput } from 'react-international-phone'
 import 'react-international-phone/style.css'
 import RentalDetailsFormField from '../RentalDetailsFormField'
 import ImageUpload from '../ImageUpload'
+import FileUpload from '../FileUpload'
 
 type PrimaryFormProps = {
   type: 'Add' | 'Update'
@@ -48,13 +49,19 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
     defaultValues: initialValues,
   })
 
+  // const photosRef = form.register('photos')
+  // const regCardRef = form.register('reg_card')
+  // const commercialLicenseRef = form.register('commercial_license')
+
   // Define a submit handler.
   async function onSubmit(values: z.infer<typeof PrimaryFormSchema>) {
     console.log('values', values)
+    return
 
     const formData = new FormData()
 
     // Append other form data
+
     if (type === 'Add') {
       return
     }
@@ -101,7 +108,7 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
           {/* type of the vehicle */}
           <FormField
             control={form.control}
-            name="vehicleType"
+            name="type"
             render={({ field }) => (
               <FormItem className="flex w-full mb-2 max-sm:flex-col ">
                 <FormLabel className="flex justify-between mt-4 ml-2 text-base w-72 lg:text-lg">
@@ -112,7 +119,7 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
                   <FormControl>
                     <CategoryFormDropdown
                       onChangeHandler={field.onChange}
-                      value={initialValues.vehicleType}
+                      value={initialValues.type}
                       placeholder="types"
                     />
                   </FormControl>
@@ -175,9 +182,8 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
               </FormItem>
             )}
           />
-
           {/* Vehicle Photos */}
-          <FormField
+          {/* <FormField
             control={form.control}
             name="photos"
             render={({ field }) => (
@@ -186,45 +192,41 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
                 label="Vehicle Photos"
                 multiple={true}
                 existingFiles={initialValues.photos}
-                description="Add Vehicle Photos. Up to 8 photos can be added."
               />
             )}
           />
-
-          {/* Registration Card */}
           <FormField
             control={form.control}
-            name="regCard"
+            name="reg_card"
             render={({ field }) => (
               <ImageUpload
-                name="regCard"
+                name="reg_card"
                 label="Registration Card"
-                multiple={true}
-                existingFiles={initialValues.regCard}
-                description="Add Registration Card images (both front and back)"
-              />
-            )}
-          />
-
-          {/* Commercial License */}
-          <FormField
-            control={form.control}
-            name="commercialLicense"
-            render={({ field }) => (
-              <ImageUpload
-                name="commercialLicense"
-                label="Commercial License / Mulkia"
                 multiple={false}
-                existingFiles={initialValues.commercialLicense}
-                description="Add Commercial License/Mulkia. Image or PDF accepted."
+                existingFiles={initialValues.reg_card}
               />
             )}
           />
-
+         <FormField
+            control={form.control}
+            name="commercial_license"
+            render={({ field }) => (
+              <FileUpload
+                name="commercial_license"
+                label="Commercial License"
+                existingFiles={
+                  initialValues.commercial_license
+                    ? [initialValues.commercial_license]
+                    : []
+                }
+              />
+            )}
+          /> */}
+          {/* vehicle photos field component here*/}
           {/* registered year */}
           <FormField
             control={form.control}
-            name="regYear"
+            name="reg_year"
             render={({ field }) => (
               <FormItem className="flex w-full mb-2 max-sm:flex-col ">
                 <FormLabel className="flex justify-between mt-4 ml-2 text-base w-72 lg:text-lg">
@@ -234,7 +236,7 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
                   <FormControl>
                     <YearPicker
                       onChangeHandler={field.onChange}
-                      value={initialValues.regYear}
+                      value={initialValues.reg_year}
                       placeholder="year"
                     />
                   </FormControl>
@@ -246,6 +248,8 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
               </FormItem>
             )}
           />
+          {/* Registration Card*/}
+          {/* commercial license */}
 
           {/* Lease */}
           <FormField
@@ -356,29 +360,27 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
               </FormItem>
             )}
           />
-
           {/* rental details */}
-          <FormField
+          {/* <FormField
             control={form.control}
             name="rentalDetails"
             render={({ field }) => (
-              <FormItem className="flex w-full mb-2 max-sm:flex-col ">
+              <FormItem className="flex w-full mb-2 max-sm:flex-col">
                 <FormLabel className="flex justify-between mt-4 ml-2 text-base w-72 lg:text-lg">
                   Rental Details <span className="mr-5 max-sm:hidden">:</span>
                 </FormLabel>
                 <div className="flex-col items-start w-full">
                   <FormControl>
-                    <RentalDetailsFormField />
+                    <RentalDetailsFormField rentalDetails={field.value} />
                   </FormControl>
-                  <FormDescription className="ml-2">
-                    provide rent details . At least one value should be selected
+                  <FormDescription className="mt-2 ml-2">
+                    Add Rental Details
                   </FormDescription>
                   <FormMessage className="ml-2" />
                 </div>
               </FormItem>
             )}
-          />
-
+          /> */}
           {/* Location(state) */}
           <FormField
             control={form.control}

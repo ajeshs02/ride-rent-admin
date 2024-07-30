@@ -8,13 +8,13 @@ export type RentalDetailType = {
 
 export type PrimaryFormType = {
   category?: VehicleCategoryType | ''
-  type: string
+  vehicleType: string
   brand: string
   model: string
-  photos: string[]
-  reg_year: string
-  reg_card: string[] // 2 photos of the registration card
-  commercial_license: string // commercial license/Mulkia in UAE
+  photos: (File | string)[] // Array of files or URLs
+  regYear: string
+  regCard: (File | string)[] // Array of files or URLs
+  commercialLicense: (File | string)[] // File or URL
   lease: boolean
   specification: 'UAE' | 'USA' | 'Other'
   rentalDetails: {

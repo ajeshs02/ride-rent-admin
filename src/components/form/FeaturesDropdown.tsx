@@ -33,7 +33,7 @@ const MultiSelectDropdown = ({
 
   return (
     <AccordionItem value={uniqueValue}>
-      <AccordionTrigger disabled={isDisabled} className="accordion-trigger">
+      <AccordionTrigger disabled={isDisabled} className="hover:no-underline">
         {`Choose ${placeholder}`}
       </AccordionTrigger>
       <AccordionContent>
@@ -41,17 +41,18 @@ const MultiSelectDropdown = ({
           options.map((option) => (
             <FormItem
               key={option.value}
-              className="flex flex-row items-start space-x-3 space-y-0"
+              className="flex items-center gap-2 mb-1"
             >
-              <FormControl>
+              <FormControl className="">
                 <Checkbox
                   checked={value.includes(option.value)}
                   onCheckedChange={(checked) =>
                     handleCheckboxChange(option.value, !!checked)
                   }
+                  className="bg-white data-[state=checked]:bg-yellow data-[state=checked]:border-none mt-2"
                 />
               </FormControl>
-              <FormLabel className="font-normal">{option.label}</FormLabel>
+              <FormLabel className="">{option.label}</FormLabel>
             </FormItem>
           ))}
       </AccordionContent>
