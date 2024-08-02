@@ -142,12 +142,31 @@ export const AdsFormSchema = z.object({
     }, 'Image must be either a File or a URL'),
 })
 
-// Sub-schema for rental details in the primary form
-const RentalDetailSchema = z.object({
+// RentalDetailType Schema
+const RentalDetailTypeSchema = z.object({
   enabled: z.boolean(),
-  rentInAED: z.string().min(1, 'Rent in AED is required').optional(),
-  mileageLimit: z.string().min(1, 'Mileage limit is required').optional(),
+  rentInAED: z.string().optional(),
+  mileageLimit: z.string().optional(),
 })
+
+// Custom refinement for rental details
+const RentalDetailsSchema = z
+  .object({
+    day: RentalDetailTypeSchema,
+    week: RentalDetailTypeSchema,
+    month: RentalDetailTypeSchema,
+  })
+  .refine(
+    (data) => {
+      const { day, week, month } = data
+      return day.enabled || week.enabled || month.enabled
+    },
+    {
+      message:
+        'At least one rental period (day, week, or month) must be enabled',
+      path: ['enabled'],
+    }
+  )
 
 // Primary Form Schema
 export const PrimaryFormSchema = z.object({
@@ -201,55 +220,7 @@ export const PrimaryFormSchema = z.object({
   specification: z.enum(['USA', 'UAE', 'Other'], {
     required_error: 'Specification is required',
   }),
-  rentalDetails: z
-    .object({
-      day: RentalDetailSchema.refine(
-        (data) => {
-          if (data.enabled) {
-            return !!data.rentInAED && !!data.mileageLimit
-          }
-          return true
-        },
-        {
-          message: 'Rent in AED and Mileage limit are required for day',
-          path: ['rentInAED', 'mileageLimit'],
-        }
-      ),
-      week: RentalDetailSchema.refine(
-        (data) => {
-          if (data.enabled) {
-            return !!data.rentInAED && !!data.mileageLimit
-          }
-          return true
-        },
-        {
-          message: 'Rent in AED and Mileage limit are required for week',
-          path: ['rentInAED', 'mileageLimit'],
-        }
-      ),
-      month: RentalDetailSchema.refine(
-        (data) => {
-          if (data.enabled) {
-            return !!data.rentInAED && !!data.mileageLimit
-          }
-          return true
-        },
-        {
-          message: 'Rent in AED and Mileage limit are required for month',
-          path: ['rentInAED', 'mileageLimit'],
-        }
-      ),
-    })
-    .refine(
-      (data) => {
-        return data.day.enabled || data.week.enabled || data.month.enabled
-      },
-      {
-        message:
-          'At least one rental option (day, week, or month) must be enabled',
-        path: ['rentalDetails'],
-      }
-    ),
+  rentalDetails: RentalDetailsSchema,
   mobile: z.string().min(1, 'Contact number is required'),
   location: z.string().min(1, 'State / location is required'),
   cities: z.string().min(1, 'Cities are required'),

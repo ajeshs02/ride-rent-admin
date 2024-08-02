@@ -52,6 +52,36 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
   async function onSubmit(values: z.infer<typeof PrimaryFormSchema>) {
     console.log('values', values)
 
+    const { day, week, month } = values.rentalDetails
+
+    let message =
+      'Rent in AED as well as Mileage should be provided for the checked values'
+
+    if (day.enabled && (!day.rentInAED || !day.mileageLimit)) {
+      console.log('day reached')
+      form.setError('rentalDetails', {
+        type: 'manual',
+        message,
+      })
+      return
+    }
+
+    if (week.enabled && (!week.rentInAED || !week.mileageLimit)) {
+      form.setError('rentalDetails', {
+        type: 'manual',
+        message,
+      })
+      return
+    }
+
+    if (month.enabled && (!month.rentInAED || !month.mileageLimit)) {
+      form.setError('rentalDetails', {
+        type: 'manual',
+        message,
+      })
+      return
+    }
+
     const formData = new FormData()
 
     // Append other form data
@@ -98,6 +128,7 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
               </FormItem>
             )}
           />
+
           {/* type of the vehicle */}
           <FormField
             control={form.control}
@@ -124,6 +155,7 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
               </FormItem>
             )}
           />
+
           {/* brand name */}
           <FormField
             control={form.control}
@@ -361,22 +393,25 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
           <FormField
             control={form.control}
             name="rentalDetails"
-            render={({ field }) => (
-              <FormItem className="flex w-full mb-2 max-sm:flex-col ">
-                <FormLabel className="flex justify-between mt-4 ml-2 text-base w-72 lg:text-lg">
-                  Rental Details <span className="mr-5 max-sm:hidden">:</span>
-                </FormLabel>
-                <div className="flex-col items-start w-full">
-                  <FormControl>
-                    <RentalDetailsFormField />
-                  </FormControl>
-                  <FormDescription className="ml-2">
-                    provide rent details . At least one value should be selected
-                  </FormDescription>
-                  <FormMessage className="ml-2" />
-                </div>
-              </FormItem>
-            )}
+            render={({ formState }) => {
+              return (
+                <FormItem className="flex w-full mb-2 max-sm:flex-col ">
+                  <FormLabel className="flex justify-between mt-4 ml-2 text-base w-72 lg:text-lg">
+                    Rental Details <span className="mr-5 max-sm:hidden">:</span>
+                  </FormLabel>
+                  <div className="flex-col items-start w-full">
+                    <FormControl>
+                      <RentalDetailsFormField />
+                    </FormControl>
+                    <FormDescription className="ml-2">
+                      Provide rent details. At least one value should be
+                      selected.
+                    </FormDescription>
+                    <FormMessage className="ml-2" />
+                  </div>
+                </FormItem>
+              )
+            }}
           />
 
           {/* Location(state) */}
