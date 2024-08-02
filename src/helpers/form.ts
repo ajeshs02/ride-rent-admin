@@ -37,3 +37,43 @@ export const formatFieldName = (field: string): string => {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()) // Capitalize each word
     .join(' ') // Join words with spaces
 }
+
+// rental detail type
+type RentalDetailType = {
+  enabled?: boolean | undefined
+  rentInAED?: string | undefined
+  mileageLimit?: string | undefined
+}
+
+type RentalDetailsType = {
+  day: RentalDetailType
+  week: RentalDetailType
+  month: RentalDetailType
+}
+
+// rental details form field validation helper function
+export const validateRentalDetails = (
+  rentalDetails: RentalDetailsType
+): string | null => {
+  const { day, week, month } = rentalDetails
+  let message =
+    'Rent in AED as well as Mileage should be provided for the checked values'
+
+  if (!day.enabled && !week.enabled && !month.enabled) {
+    return 'At least one rental period (day, week, or month) must be enabled'
+  }
+
+  if (day.enabled && (!day.rentInAED || !day.mileageLimit)) {
+    return message
+  }
+
+  if (week.enabled && (!week.rentInAED || !week.mileageLimit)) {
+    return message
+  }
+
+  if (month.enabled && (!month.rentInAED || !month.mileageLimit)) {
+    return message
+  }
+
+  return null
+}

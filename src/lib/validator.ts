@@ -144,29 +144,10 @@ export const AdsFormSchema = z.object({
 
 // RentalDetailType Schema
 const RentalDetailTypeSchema = z.object({
-  enabled: z.boolean(),
+  enabled: z.boolean().optional(),
   rentInAED: z.string().optional(),
   mileageLimit: z.string().optional(),
 })
-
-// Custom refinement for rental details
-const RentalDetailsSchema = z
-  .object({
-    day: RentalDetailTypeSchema,
-    week: RentalDetailTypeSchema,
-    month: RentalDetailTypeSchema,
-  })
-  .refine(
-    (data) => {
-      const { day, week, month } = data
-      return day.enabled || week.enabled || month.enabled
-    },
-    {
-      message:
-        'At least one rental period (day, week, or month) must be enabled',
-      path: ['enabled'],
-    }
-  )
 
 // Primary Form Schema
 export const PrimaryFormSchema = z.object({
@@ -220,7 +201,11 @@ export const PrimaryFormSchema = z.object({
   specification: z.enum(['USA', 'UAE', 'Other'], {
     required_error: 'Specification is required',
   }),
-  rentalDetails: RentalDetailsSchema,
+  rentalDetails: z.object({
+    day: RentalDetailTypeSchema,
+    week: RentalDetailTypeSchema,
+    month: RentalDetailTypeSchema,
+  }),
   mobile: z.string().min(1, 'Contact number is required'),
   location: z.string().min(1, 'State / location is required'),
   cities: z.string().min(1, 'Cities are required'),

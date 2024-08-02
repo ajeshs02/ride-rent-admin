@@ -1,6 +1,7 @@
 import { useFormContext, Controller } from 'react-hook-form'
 import { Input } from '@/components/ui/input'
 import { Checkbox } from '@/components/ui/checkbox'
+import { FormMessage } from '../ui/form'
 
 const RentalDetailField = ({
   period,

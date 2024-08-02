@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
@@ -30,6 +30,7 @@ import { PhoneInput } from 'react-international-phone'
 import 'react-international-phone/style.css'
 import RentalDetailsFormField from '../RentalDetailsFormField'
 import ImageUpload from '../ImageUpload'
+import { validateRentalDetails } from '@/helpers/form'
 
 type PrimaryFormProps = {
   type: 'Add' | 'Update'
@@ -52,32 +53,11 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
   async function onSubmit(values: z.infer<typeof PrimaryFormSchema>) {
     console.log('values', values)
 
-    const { day, week, month } = values.rentalDetails
-
-    let message =
-      'Rent in AED as well as Mileage should be provided for the checked values'
-
-    if (day.enabled && (!day.rentInAED || !day.mileageLimit)) {
-      console.log('day reached')
+    const rentalError = validateRentalDetails(values.rentalDetails)
+    if (rentalError) {
       form.setError('rentalDetails', {
         type: 'manual',
-        message,
-      })
-      return
-    }
-
-    if (week.enabled && (!week.rentInAED || !week.mileageLimit)) {
-      form.setError('rentalDetails', {
-        type: 'manual',
-        message,
-      })
-      return
-    }
-
-    if (month.enabled && (!month.rentInAED || !month.mileageLimit)) {
-      form.setError('rentalDetails', {
-        type: 'manual',
-        message,
+        message: rentalError,
       })
       return
     }
