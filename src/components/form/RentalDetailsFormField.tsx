@@ -1,7 +1,7 @@
 import { useFormContext, Controller } from 'react-hook-form'
 import { Input } from '@/components/ui/input'
 import { Checkbox } from '@/components/ui/checkbox'
-import { FormMessage } from '../ui/form'
+import { FormDescription, FormMessage } from '../ui/form'
 
 const RentalDetailField = ({
   period,
@@ -12,7 +12,7 @@ const RentalDetailField = ({
   const isEnabled = watch(`rentalDetails.${period}.enabled`)
 
   return (
-    <>
+    <div className="p-2 mb-2 border-b rounded-lg shadow ">
       <Controller
         name={`rentalDetails.${period}.enabled`}
         control={control}
@@ -26,7 +26,7 @@ const RentalDetailField = ({
             />
             <label
               htmlFor={`rentalDetails-${period}-enabled`}
-              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              className="text-base font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
             >
               {period.charAt(0).toUpperCase() + period.slice(1)}
             </label>
@@ -39,14 +39,39 @@ const RentalDetailField = ({
             name={`rentalDetails.${period}.rentInAED`}
             control={control}
             render={({ field }) => (
-              <div className="mt-2">
+              <div className="flex items-center mt-2">
                 <label
                   htmlFor={`rentalDetails-${period}-rentInAED`}
-                  className="block text-sm font-medium"
+                  className="block mr-1 text-sm font-medium w-28"
                 >
                   Rent in AED
                 </label>
-                <Input {...field} placeholder="Rent in AED" />
+                <div className="w-full">
+                  <Input
+                    id={`rentalDetails-${period}-rentInAED`}
+                    {...field}
+                    placeholder="Rent in AED"
+                    className="input-field"
+                    type="text"
+                    inputMode="numeric"
+                    onKeyDown={(e) => {
+                      if (
+                        !/^\d*$/.test(e.key) &&
+                        ![
+                          'Backspace',
+                          'Delete',
+                          'ArrowLeft',
+                          'ArrowRight',
+                        ].includes(e.key)
+                      ) {
+                        e.preventDefault()
+                      }
+                    }}
+                  />
+                  <FormDescription>
+                    {`Rent of the Vehicle in AED per ${period} `}
+                  </FormDescription>
+                </div>
               </div>
             )}
           />
@@ -54,20 +79,45 @@ const RentalDetailField = ({
             name={`rentalDetails.${period}.mileageLimit`}
             control={control}
             render={({ field }) => (
-              <div className="mt-2">
+              <div className="flex items-center mt-2">
                 <label
                   htmlFor={`rentalDetails-${period}-mileageLimit`}
-                  className="block text-sm font-medium"
+                  className="block text-sm font-medium w-28"
                 >
                   Mileage Limit
                 </label>
-                <Input {...field} placeholder="Mileage Limit" />
+                <div className="w-full">
+                  <Input
+                    id={`rentalDetails-${period}-mileageLimit`}
+                    {...field}
+                    placeholder="Mileage Limit"
+                    className="input-field"
+                    type="text"
+                    inputMode="numeric"
+                    onKeyDown={(e) => {
+                      if (
+                        !/^\d*$/.test(e.key) &&
+                        ![
+                          'Backspace',
+                          'Delete',
+                          'ArrowLeft',
+                          'ArrowRight',
+                        ].includes(e.key)
+                      ) {
+                        e.preventDefault()
+                      }
+                    }}
+                  />
+                  <FormDescription>
+                    {`Mileage of the vehicle per ${period} `}
+                  </FormDescription>
+                </div>
               </div>
             )}
           />
         </>
       )}
-    </>
+    </div>
   )
 }
 

@@ -29,7 +29,7 @@ import { Label } from '@/components/ui/label'
 import { PhoneInput } from 'react-international-phone'
 import 'react-international-phone/style.css'
 import RentalDetailsFormField from '../RentalDetailsFormField'
-import ImageUpload from '../ImageUpload'
+import FileUpload from '../FileUpload'
 import { validateRentalDetails } from '@/helpers/form'
 
 type PrimaryFormProps = {
@@ -193,7 +193,7 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
             control={form.control}
             name="photos"
             render={({ field }) => (
-              <ImageUpload
+              <FileUpload
                 name="photos"
                 label="Vehicle Photos"
                 multiple={true}
@@ -208,7 +208,7 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
             control={form.control}
             name="regCard"
             render={({ field }) => (
-              <ImageUpload
+              <FileUpload
                 name="regCard"
                 label="Registration Card"
                 multiple={true}
@@ -223,7 +223,7 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
             control={form.control}
             name="commercialLicense"
             render={({ field }) => (
-              <ImageUpload
+              <FileUpload
                 name="commercialLicense"
                 label="Commercial License / Mulkia"
                 multiple={false}

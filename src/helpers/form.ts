@@ -77,3 +77,26 @@ export const validateRentalDetails = (
 
   return null
 }
+
+// file upload image file size validator
+export const validateFileSize = (file: File, maxSizeMB: number) => {
+  const maxSizeBytes = maxSizeMB * 1024 * 1024
+  return file.size <= maxSizeBytes
+}
+
+// file upload image file dimension validator
+export const validateImageDimensions = (
+  file: File,
+  maxWidth: number,
+  maxHeight: number
+) => {
+  return new Promise<boolean>((resolve) => {
+    const img = new Image()
+    img.onload = () => {
+      const isValid = img.width <= maxWidth && img.height <= maxHeight
+      resolve(isValid)
+    }
+    img.onerror = () => resolve(false)
+    img.src = URL.createObjectURL(file)
+  })
+}
