@@ -19,7 +19,7 @@ import { BrandFormType, VehicleCategoryType } from '@/types/types'
 import { BrandFormSchema } from '@/lib/validator'
 import { BrandFormDefaultValues } from '@/constants'
 import { Textarea } from '../ui/textarea'
-import CategoryFormDropdown from './FormCategoryDropdown'
+import FormDropdown from './FormDropdown'
 
 type BrandFormProps = {
   type: 'Add' | 'Update'
@@ -187,7 +187,7 @@ export default function BrandForm({
               <FormItem className="w-full mb-2 ">
                 <FormLabel className="ml-2 ">Vehicle Category</FormLabel>
                 <FormControl>
-                  <CategoryFormDropdown
+                  <FormDropdown
                     onChangeHandler={field.onChange}
                     value={category}
                   />

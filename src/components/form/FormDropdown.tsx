@@ -20,7 +20,7 @@ type VehicleCategory = {
   label: string
   value: string
 }
-const CategoryFormDropdown = ({
+const FormDropdown = ({
   value,
   onChangeHandler,
   placeholder = 'option',
@@ -65,4 +65,4 @@ const CategoryFormDropdown = ({
     </Select>
   )
 }
-export default CategoryFormDropdown
+export default FormDropdown

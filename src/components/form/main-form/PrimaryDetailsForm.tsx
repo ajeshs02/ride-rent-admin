@@ -18,7 +18,7 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 
-import CategoryFormDropdown from '../FormCategoryDropdown'
+import FormDropdown from '../FormDropdown'
 import { PrimaryFormDefaultValues } from '@/constants'
 import { PrimaryFormSchema } from '@/lib/validator'
 import { PrimaryFormType } from '@/types/formTypes'
@@ -31,6 +31,7 @@ import 'react-international-phone/style.css'
 import RentalDetailsFormField from '../RentalDetailsFormField'
 import FileUpload from '../FileUpload'
 import { validateRentalDetails } from '@/helpers/form'
+import BrandsDropdown from '../BrandsDropdown'
 
 type PrimaryFormProps = {
   type: 'Add' | 'Update'
@@ -93,7 +94,7 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
 
                 <div className="flex-col items-start w-full">
                   <FormControl>
-                    <CategoryFormDropdown
+                    <FormDropdown
                       onChangeHandler={field.onChange}
                       value={initialValues.category}
                       placeholder="category"
@@ -121,7 +122,7 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
 
                 <div className="flex-col items-start w-full">
                   <FormControl>
-                    <CategoryFormDropdown
+                    <FormDropdown
                       onChangeHandler={field.onChange}
                       value={initialValues.vehicleType}
                       placeholder="types"
@@ -147,9 +148,9 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
                 </FormLabel>
                 <div className="flex-col items-start w-full">
                   <FormControl>
-                    <CategoryFormDropdown
+                    <BrandsDropdown
                       onChangeHandler={field.onChange}
-                      value={initialValues.brand}
+                      value={field.value}
                       placeholder="brand"
                       isDisabled={false}
                     />
@@ -405,7 +406,7 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
                 </FormLabel>
                 <div className="flex-col items-start w-full">
                   <FormControl>
-                    <CategoryFormDropdown
+                    <FormDropdown
                       onChangeHandler={field.onChange}
                       value={initialValues.location}
                       placeholder="location"
@@ -431,7 +432,7 @@ export default function PrimaryForm({ type, formData }: PrimaryFormProps) {
                 </FormLabel>
                 <div className="flex-col items-start w-full">
                   <FormControl>
-                    <CategoryFormDropdown
+                    <FormDropdown
                       onChangeHandler={field.onChange}
                       value={initialValues.cities}
                     />
